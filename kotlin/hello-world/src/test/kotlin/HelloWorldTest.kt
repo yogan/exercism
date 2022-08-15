@@ -1,5 +1,5 @@
-import org.junit.Test
 import kotlin.test.assertEquals
+import org.junit.Test
 
 class HelloWorldTest {
 
@@ -7,5 +7,4 @@ class HelloWorldTest {
     fun helloWorldTest() {
         assertEquals("Hello, World!", hello())
     }
-
 }
