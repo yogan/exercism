@@ -5,8 +5,7 @@ object Hamming {
             "left and right strands must be of equal length"
         }
 
-        return (leftStrand.toCharArray().toList() zip //
-                rightStrand.toCharArray().toList())
+        return (leftStrand.toCharArray() zip rightStrand.toCharArray())
                 .filter { (first, second) -> first != second }
                 .size
     }
