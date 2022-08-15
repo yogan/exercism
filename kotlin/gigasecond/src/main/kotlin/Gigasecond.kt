@@ -3,15 +3,9 @@ import java.time.LocalDateTime
 
 private const val GIGA: Long = 1_000_000_000
 
-class Gigasecond {
+class Gigasecond(time: LocalDateTime) {
 
-    constructor(date: LocalDate) {
-        this.date = date.atStartOfDay().plusSeconds(GIGA)
-    }
+    constructor(date: LocalDate) : this(date.atStartOfDay())
 
-    constructor(time: LocalDateTime) {
-        this.date = time.plusSeconds(GIGA)
-    }
-
-    val date: LocalDateTime
+    val date: LocalDateTime = time.plusSeconds(GIGA)
 }
