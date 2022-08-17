@@ -1,10 +1,10 @@
 class Matrix(private val matrixAsString: String) {
 
-    private fun parseMatrix() =
+    private var matrix =
             matrixAsString.lines() //
                     .map { it.split(" ").map { it.toInt() } }
 
-    fun column(colNr: Int): List<Int> = parseMatrix().map { it[colNr - 1] }
+    fun column(colNr: Int): List<Int> = matrix.map { it[colNr - 1] }
 
-    fun row(rowNr: Int): List<Int> = parseMatrix()[rowNr - 1]
+    fun row(rowNr: Int): List<Int> = matrix[rowNr - 1]
 }
