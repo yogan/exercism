@@ -17,8 +17,6 @@ class School {
     }
 
     fun roster(): List<String> {
-        val allStudents = mutableListOf<String>()
-        roster.toSortedMap().values.forEach { grade -> allStudents.addAll(grade.sorted()) }
-        return allStudents
+        return roster.toSortedMap().values.flatMap { it.sorted() }
     }
 }
