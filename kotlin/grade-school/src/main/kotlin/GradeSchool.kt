@@ -1,19 +1,13 @@
 class School {
 
-    private val roster = mutableMapOf<Int, MutableList<String>>().withDefault { mutableListOf() }
+    private val roster = mutableMapOf<Int, MutableList<String>>()
 
     fun add(student: String, grade: Int) {
-        // FIXME: Why do we have to get the list, add something, and write it back?
-        // Why does this ↓ not work?
-        // roster.getValue(grade).add(student)
-
-        var students = roster.getValue(grade)
-        students.add(student)
-        roster[grade] = students
+        roster.getOrPut(grade) { mutableListOf() }.add(student)
     }
 
     fun grade(grade: Int): List<String> {
-        return roster.getValue(grade).sorted()
+        return roster.getOrDefault(grade, listOf()).sorted()
     }
 
     fun roster(): List<String> {
