@@ -10,13 +10,22 @@ defmodule FreelancerRates do
     before_discount - before_discount * discount / 100
   end
 
+  defp to_monthly(daily), do: daily * @days_per_month
+
   def monthly_rate(hourly_rate, discount) do
-    price = daily_rate(hourly_rate) * @days_per_month
-    apply_discount(price, discount) |> ceil
+    hourly_rate
+      |> daily_rate
+      |> to_monthly
+      |> apply_discount(discount)
+      |> ceil
   end
 
+  defp to_days(per_day, budget), do: Float.floor(budget / per_day, 1)
+
   def days_in_budget(budget, hourly_rate, discount) do
-    per_day = apply_discount(daily_rate(hourly_rate), discount)
-    Float.floor(budget / per_day, 1)
+    hourly_rate
+      |> daily_rate
+      |> apply_discount(discount)
+      |> to_days(budget)
   end
 end
