@@ -7,20 +7,24 @@ defmodule LanguageList do
     [language | list]
   end
 
-  # TODO: support empty list via pattern matching
   def remove(list) do
-    [_head | tail] = list
+    # NOTE: there is tl/1, but that's boring
+    [_ | tail] = list
     tail
   end
 
   def first(list) do
-    [head | _tail] = list
+    # NOTE: there is hd/1, but that's boring
+    [head | _] = list
     head
   end
 
-  # TODO: just for fun, build a recursive solution
   def count(list) do
-    length(list)
+    # NOTE: there is length/1, but that's boring
+    case list do
+      []         -> 0
+      [_ | tail] -> 1 + count(tail)
+    end
   end
 
   def functional_list?(list) do
