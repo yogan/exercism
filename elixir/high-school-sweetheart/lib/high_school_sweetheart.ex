@@ -13,7 +13,7 @@ defmodule HighSchoolSweetheart do
   end
 
   def initials(full_name) do
-    [first, last] = String.split(full_name, " ")
+    [first, last] = String.split(full_name)
     "#{initial(first)} #{initial(last)}"
   end
 
