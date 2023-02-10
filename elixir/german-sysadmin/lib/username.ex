@@ -1,28 +1,17 @@
 defmodule Username do
-  defguardp is_lowercase_letter(charcode) when ?a <= charcode and charcode <= ?z
-  defguardp is_underscore(charcode) when charcode == ?_
-  defguardp is_umlaut(charcode) when charcode in [?ä, ?ö, ?ü, ?ß]
+  def sanitize(''), do: ''
 
-  defp keep?(charcode) when is_lowercase_letter(charcode), do: true
-  defp keep?(charcode) when is_underscore(charcode), do: true
-  defp keep?(charcode) when is_umlaut(charcode), do: true
-  defp keep?(_charcode), do: false
-
-  defp expand_umlaut(charcode) do
-    case charcode do
+  def sanitize([charcode | rest]) do
+    sanitized = case charcode do
       ?ä -> 'ae'
       ?ö -> 'oe'
       ?ü -> 'ue'
       ?ß -> 'ss'
-      _ -> [charcode]
+      ?_ -> '_'
+      c when ?a <= c and c <= ?z -> [charcode]
+      _  -> ''
     end
-  end
 
-  def sanitize([]), do: []
-  def sanitize([h | t]) do
-    case keep?(h) do
-      true -> expand_umlaut(h) ++ sanitize(t)
-      false -> sanitize(t)
-    end
+    sanitized ++ sanitize(rest)
   end
 end
