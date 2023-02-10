@@ -1,7 +1,7 @@
 defmodule Username do
-  defguard is_lowercase_letter(charcode) when ?a <= charcode and charcode <= ?z
-  defguard is_underscore(charcode) when charcode == ?_
-  defguard is_umlaut(charcode) when charcode in [?ä, ?ö, ?ü, ?ß]
+  defguardp is_lowercase_letter(charcode) when ?a <= charcode and charcode <= ?z
+  defguardp is_underscore(charcode) when charcode == ?_
+  defguardp is_umlaut(charcode) when charcode in [?ä, ?ö, ?ü, ?ß]
 
   defp keep?(charcode) when is_lowercase_letter(charcode), do: true
   defp keep?(charcode) when is_underscore(charcode), do: true
