@@ -1,8 +1,11 @@
-//
-// This is only a SKELETON file for the 'Flatten Array' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+export const flatten = (array) => {
+  const res = []
 
-export const flatten = () => {
-  throw new Error('Remove this statement and implement this function');
+  array.forEach(elem => {
+    if (elem !== null && elem !== undefined) {
+      res.push(...(Array.isArray(elem) ? flatten(elem) : [elem]))
+    }
+  })
+
+  return res
 };
