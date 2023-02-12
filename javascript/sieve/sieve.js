@@ -1,8 +1,12 @@
-//
-// This is only a SKELETON file for the 'Sieve' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+export const primes = (n) => {
+  let numbers = Array.from({ length: n }, (_, i) => i + 1).filter(i => i > 1)
 
-export const primes = () => {
-  throw new Error('Remove this statement and implement this function');
+  for (let i = 0; i < numbers.length; i++) {
+    const prime = numbers[i]
+    for (let multiple = prime * 2; multiple <= n; multiple += prime) {
+      numbers = numbers.filter(x => x !== multiple)
+    }
+  }
+
+  return numbers
 };
