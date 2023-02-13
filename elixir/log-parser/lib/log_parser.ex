@@ -12,7 +12,7 @@ defmodule LogParser do
   end
 
   def tag_with_user_name(line) do
-    case Regex.run(~r/User\s+([^\s]+)/, line) do
+    case Regex.run(~r/User\s+(\S+)/, line) do
       [_, user] -> "[USER] #{user} #{line}"
               _ -> line
     end
