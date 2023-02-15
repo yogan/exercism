@@ -1,10 +1,26 @@
 defmodule WineCellar do
   def explain_colors do
-    # Please implement the explain_colors/0 function
+    [
+      white: "Fermented without skin contact.",
+      red:   "Fermented with skin contact using dark-colored grapes.",
+      rose:  "Fermented with some skin contact, but not enough to qualify as a red wine."
+    ]
   end
 
   def filter(cellar, color, opts \\ []) do
-    # Please implement the filter/3 function
+    cellar = cellar
+    |> Enum.filter(fn {c, _} -> c == color end)
+    |> Enum.map(fn {_, wine} -> wine end)
+
+    cellar = case Keyword.get(opts, :year) do
+      nil  -> cellar
+      year -> filter_by_year(cellar, year)
+    end
+
+    case Keyword.get(opts, :country) do
+      nil     -> cellar
+      country -> filter_by_country(cellar, country)
+    end
   end
 
   # The functions below do not need to be modified.
