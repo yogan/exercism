@@ -8,9 +8,7 @@ defmodule WineCellar do
   end
 
   def filter(cellar, color, opts \\ []) do
-    cellar = cellar
-    |> Enum.filter(fn {c, _} -> c == color end)
-    |> Enum.map(fn {_, wine} -> wine end)
+    cellar = Keyword.get_values(cellar, color)
 
     cellar = case Keyword.get(opts, :year) do
       nil  -> cellar
