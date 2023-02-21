@@ -1,25 +1,27 @@
 defmodule LibraryFees do
-  def datetime_from_string(string) do
-    # Please implement the datetime_from_string/1 function
-  end
+  def datetime_from_string(string), do: NaiveDateTime.from_iso8601!(string)
 
-  def before_noon?(datetime) do
-    # Please implement the before_noon?/1 function
-  end
+  def before_noon?(datetime), do: datetime.hour < 12
 
   def return_date(checkout_datetime) do
-    # Please implement the return_date/1 function
+    days = if before_noon?(checkout_datetime), do: 28, else: 29
+    Date.add(checkout_datetime, days)
   end
 
   def days_late(planned_return_date, actual_return_datetime) do
-    # Please implement the days_late/2 function
+    Date.diff(actual_return_datetime, planned_return_date)
+    |> Kernel.max(0)
   end
 
-  def monday?(datetime) do
-    # Please implement the monday?/1 function
-  end
+  def monday?(datetime), do: Date.day_of_week(datetime) == 1
 
   def calculate_late_fee(checkout, return, rate) do
-    # Please implement the calculate_late_fee/3 function
+    planned_return_date = return_date(datetime_from_string(checkout))
+    actual_return_date = datetime_from_string(return)
+
+    days = days_late(planned_return_date, actual_return_date)
+    total_rate = rate * days
+
+    if monday?(actual_return_date), do: floor(total_rate * 0.5), else: total_rate
   end
 end
