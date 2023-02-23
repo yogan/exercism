@@ -1,9 +1,8 @@
 defmodule BasketballWebsite do
-  def extract_from_path(data, path) do
-    # Please implement the extract_from_path/2 function
-  end
+  def extract_from_path(data, path), do: String.split(path, ".") |> extract(data)
 
-  def get_in_path(data, path) do
-    # Please implement the get_in_path/2 function
-  end
+  defp extract([h],     data), do: data[h]
+  defp extract([h | t], data), do: extract(t, data[h])
+
+  def get_in_path(data, path), do: get_in(data, String.split(path, "."))
 end
