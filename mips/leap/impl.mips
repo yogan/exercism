@@ -9,24 +9,18 @@
 .globl is_leap_year
 
 is_leap_year:
-        li      $t0, 4
-        divu    $a0, $t0
-        mfhi    $t1
-        bgt     $t1, $zero, return_false
+        rem     $t0, $a0, 4
+        bnez    $t0, return_false
 
-        li      $t0, 100
-        divu    $a0, $t0
-        mfhi    $t1
-        beq     $t1, $zero, check_div_by_100
+        rem     $t0, $a0, 100
+        beqz    $t0, check_div_by_100
 
         li      $v0, 1
         jr      $ra
 
 check_div_by_100:
-        li      $t0, 400
-        divu    $a0, $t0
-        mfhi    $t1
-        bgt     $t1, $zero, return_false
+        rem     $t0, $a0, 400
+        bnez    $t0, return_false
 
         li      $v0, 1
         jr      $ra
