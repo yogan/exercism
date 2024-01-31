@@ -4,6 +4,6 @@ class Raindrops
       .map { |w,d| n % d == 0 ? w.to_s : "" }
       .join("")
 
-    result == "" ? n.to_s : result
+    result.empty? ? n.to_s : result
   end
 end
