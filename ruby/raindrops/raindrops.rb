@@ -1,8 +1,8 @@
 class Raindrops
   def self.convert(n)
-    result = { Pling: 3, Plang: 5, Plong: 7}
+    result = { Pling: 3, Plang: 5, Plong: 7 }
       .map { |w,d| n % d == 0 ? w.to_s : "" }
-      .join("")
+      .join
 
     result.empty? ? n.to_s : result
   end
