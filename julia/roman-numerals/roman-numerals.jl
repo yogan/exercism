@@ -1,9 +1,23 @@
 function to_roman(number)
     if number ∈ 1:3999
-        return roman_rec(number)
+        return roman_table(number)
+        # return roman_rec(number)
     end
 
     throw(ErrorException("$number cannot be represented in Roman numerals."))
+end
+
+function roman_table(number)
+    table = [
+        ("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"),
+        ("X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"),
+        ("C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"),
+        ("M", "MM", "MMM"),
+    ]
+
+    return map(
+        (digit, row) -> digit > 0 ? row[digit] : "",
+        digits(number), table) |> reverse |> join
 end
 
 function roman_rec(number)
