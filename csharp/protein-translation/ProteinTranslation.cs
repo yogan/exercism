@@ -3,54 +3,29 @@ using System.Linq;
 
 public static class ProteinTranslation
 {
-    public static string[] Proteins(string strand)
-    {
-        return Translate(strand).ToArray();
-    }
+    public static string[] Proteins(string strand) =>
+        GetCodons(strand)
+            .Select(ToProtein)
+            .TakeWhile(protein => protein != null)
+            .ToArray();
 
-    private static IEnumerable<string> Translate(string strand)
-    {
-        foreach (var codon in GetCodons(strand))
+    private static string ToProtein(string codon) =>
+        codon switch
         {
-            switch (codon)
-            {
-                case "AUG":
-                    yield return "Methionine";
-                    break;
-                case "UUU":
-                case "UUC":
-                    yield return "Phenylalanine";
-                    break;
-                case "UUA":
-                case "UUG":
-                    yield return "Leucine";
-                    break;
-                case "UCU":
-                case "UCC":
-                case "UCA":
-                case "UCG":
-                    yield return "Serine";
-                    break;
-                case "UAU":
-                case "UAC":
-                    yield return "Tyrosine";
-                    break;
-                case "UGU":
-                case "UGC":
-                    yield return "Cysteine";
-                    break;
-                case "UGG":
-                    yield return "Tryptophan";
-                    break;
-                case "UAA":
-                case "UAG":
-                case "UGA":
-                    yield break;
-            }
-        }
-    }
+            "AUG" => "Methionine",
+            "UUU" or "UUC" => "Phenylalanine",
+            "UUA" or "UUG" => "Leucine",
+            "UCU" or "UCC" or "UCA" or "UCG" => "Serine",
+            "UAU" or "UAC" => "Tyrosine",
+            "UGU" or "UGC" => "Cysteine",
+            "UGG" => "Tryptophan",
+            "UAA" => null,
+            "UAG" => null,
+            "UGA" => null,
+            _ => throw new System.ArgumentException("Invalid codon")
+        };
 
-    private static IEnumerable<string>GetCodons(string strand)
+    private static IEnumerable<string> GetCodons(string strand)
     {
         for (int i = 0; i < strand.Length; i += 3)
         {
