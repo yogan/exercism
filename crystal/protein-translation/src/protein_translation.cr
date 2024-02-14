@@ -8,11 +8,11 @@ module ProteinTranslation
       .map { |codon| self.translate(codon) }
   end
 
-  def self.stop?(codon : String)
+  private def self.stop?(codon : String)
     ["UAA", "UAG", "UGA"].includes?(codon)
   end
 
-  def self.translate(codon : String) : String
+  private def self.translate(codon : String) : String
     case codon
     when "AUG"                      then "Methionine"
     when "UUU", "UUC"               then "Phenylalanine"
