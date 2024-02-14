@@ -9,7 +9,7 @@ module ProteinTranslation
   end
 
   private def self.stop?(codon : String)
-    ["UAA", "UAG", "UGA"].includes?(codon)
+    codon.in?(["UAA", "UAG", "UGA"])
   end
 
   private def self.translate(codon : String) : String
