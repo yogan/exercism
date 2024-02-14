@@ -1,14 +1,18 @@
 module ProteinTranslation
   def self.proteins(strand : String) : Array(String)
-    strand
-      .chars
-      .in_slices_of(3)
-      .map(&.join(""))
+    get_codons(strand)
       .take_while { |codon| !self.stop?(codon) }
       .map { |codon| self.translate(codon) }
   end
 
-  private def self.stop?(codon : String)
+  private def self.get_codons(strand : String) : Array(String)
+    strand
+      .chars
+      .in_slices_of(3)
+      .map(&.join(""))
+  end
+
+  private def self.stop?(codon : String) : Bool
     codon.in?(["UAA", "UAG", "UGA"])
   end
 
