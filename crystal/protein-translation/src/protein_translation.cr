@@ -3,7 +3,7 @@ module ProteinTranslation
     strand
       .chars
       .in_slices_of(3)
-      .map { |chars| chars.join("") }
+      .map(&.join(""))
       .take_while { |codon| !self.stop?(codon) }
       .map { |codon| self.translate(codon) }
   end
