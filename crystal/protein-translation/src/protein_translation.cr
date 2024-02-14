@@ -9,7 +9,7 @@ module ProteinTranslation
     strand
       .chars
       .in_slices_of(3)
-      .map(&.join(""))
+      .map(&.join())
   end
 
   private def self.stop?(codon : String) : Bool
