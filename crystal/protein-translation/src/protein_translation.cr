@@ -1,7 +1,7 @@
 module ProteinTranslation
   def self.proteins(strand : String) : Array(String)
     strand
-      .split("", remove_empty: true)
+      .chars
       .in_slices_of(3)
       .map { |chars| chars.join("") }
       .take_while { |codon| !self.stop?(codon) }
