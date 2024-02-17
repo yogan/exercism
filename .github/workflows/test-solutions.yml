@@ -19,3 +19,6 @@ jobs:
 
       - name: Test Clojure solutions
         run: ./bin/test-clojure.sh
+
+      - name: Test Common LISP solutions
+        run: ./bin/test-common-lisp.sh
