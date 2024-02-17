@@ -1,0 +1,21 @@
+name: Test Solutions
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-solutions:
+    runs-on: ubuntu-latest
+    container: ghcr.io/yogan/yogans-advent-of-code:latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Test Clojure solutions
+        run: ./bin/test-clojure.sh
