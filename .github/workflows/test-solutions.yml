@@ -28,3 +28,9 @@ jobs:
 
       - name: Test C++ solutions
         run: ./bin/test-cpp.sh
+
+      - name: Test C# solutions
+        run: ./bin/test-dotnet.sh csharp
+
+      - name: Test F# solutions
+        run: ./bin/test-dotnet.sh fsharp
