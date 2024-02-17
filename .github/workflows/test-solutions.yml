@@ -22,3 +22,6 @@ jobs:
 
       - name: Test Common LISP solutions
         run: ./bin/test-common-lisp.sh
+
+      - name: Test Crystal solutions
+        run: ./bin/test-crystal.sh
