@@ -32,5 +32,8 @@ jobs:
       - name: Test C# solutions
         run: ./bin/test-dotnet.sh csharp
 
+      - name: Test Elixir solutions
+        run: ./bin/test-elixir.sh
+
       - name: Test F# solutions
         run: ./bin/test-dotnet.sh fsharp
