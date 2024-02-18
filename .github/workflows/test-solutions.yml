@@ -52,3 +52,6 @@ jobs:
 
       - name: Test Nim solutions
         run: ./bin/test-nim.sh
+
+      - name: Test Python solutions
+        run: ./bin/test-python.sh
