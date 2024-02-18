@@ -37,3 +37,6 @@ jobs:
 
       - name: Test F# solutions
         run: ./bin/test-dotnet.sh fsharp
+
+      - name: Test JavaScript solutions
+        run: ./bin/test-javascript.sh
