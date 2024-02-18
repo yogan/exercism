@@ -49,3 +49,6 @@ jobs:
 
       - name: Test MIPS Assembly solutions
         run: ./bin/test-mips.sh
+
+      - name: Test Nim solutions
+        run: ./bin/test-nim.sh
