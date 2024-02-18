@@ -46,3 +46,6 @@ jobs:
 
       - name: Test Kotlin solutions
         run: ./bin/test-kotlin.sh
+
+      - name: Test MIPS Assembly solutions
+        run: ./bin/test-mips.sh
