@@ -40,3 +40,6 @@ jobs:
 
       - name: Test JavaScript solutions
         run: ./bin/test-javascript.sh
+
+      - name: Test Julia solutions
+        run: ./bin/test-julia.sh
