@@ -43,3 +43,6 @@ jobs:
 
       - name: Test Julia solutions
         run: ./bin/test-julia.sh
+
+      - name: Test Kotlin solutions
+        run: ./bin/test-kotlin.sh
