@@ -58,3 +58,6 @@ jobs:
 
       - name: Test R solutions
         run: ./bin/test-r.sh
+
+      - name: Test Ruby solutions
+        run: ./bin/test-ruby.sh
