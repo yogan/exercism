@@ -55,3 +55,6 @@ jobs:
 
       - name: Test Python solutions
         run: ./bin/test-python.sh
+
+      - name: Test R solutions
+        run: ./bin/test-r.sh
