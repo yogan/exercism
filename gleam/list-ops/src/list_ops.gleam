@@ -61,8 +61,12 @@ pub fn foldr(
 }
 
 pub fn reverse(list: List(a)) -> List(a) {
+  rev(list, [])
+}
+
+fn rev(list: List(a), acc: List(a)) -> List(a) {
   case list {
-    [] -> []
-    [head, ..rest] -> append(reverse(rest), [head])
+    [] -> acc
+    [head, ..rest] -> rev(rest, [head, ..acc])
   }
 }
