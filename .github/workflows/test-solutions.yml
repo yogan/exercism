@@ -38,6 +38,9 @@ jobs:
       - name: Test F# solutions
         run: ./bin/test-dotnet.sh fsharp
 
+      - name: Test Gleam solutions
+        run: ./bin/test-gleam.sh
+
       - name: Test JavaScript solutions
         run: ./bin/test-javascript.sh
 
