@@ -54,7 +54,10 @@ pub fn foldr(
   from initial: b,
   with function: fn(b, a) -> b,
 ) -> b {
-  foldl(reverse(list), initial, function)
+  case list {
+    [] -> initial
+    [head, ..rest] -> function(foldr(rest, initial, function), head)
+  }
 }
 
 pub fn reverse(list: List(a)) -> List(a) {
