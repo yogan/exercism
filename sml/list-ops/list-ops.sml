@@ -2,11 +2,14 @@ fun concat       [] = []
   | concat ([]::xs) = concat xs
   | concat  (x::xs) = (hd x) :: concat (tl x :: xs)
 
-fun rev (lst, acc) =
-  case lst of [] => acc
-         | x::xs => rev (xs, x::acc)
-
-fun reverse (xs) = rev (xs, [])
+fun reverse xs =
+  let
+    fun rev (lst, acc) =
+      case lst of [] => acc
+             | x::xs => rev (xs, x::acc)
+  in
+    rev (xs, [])
+  end
 
 fun filter (f, lst) =
   case lst of [] => []
