@@ -67,3 +67,6 @@ jobs:
 
       - name: Test Standard ML solutions
         run: ./bin/test-sml.sh
+
+      - name: Test Swift solutions
+        run: ./bin/test-swift.sh
