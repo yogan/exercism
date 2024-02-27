@@ -70,3 +70,6 @@ jobs:
 
       - name: Test Swift solutions
         run: ./bin/test-swift.sh
+
+      - name: Test Tcl solutions
+        run: ./bin/test-tcl.sh
