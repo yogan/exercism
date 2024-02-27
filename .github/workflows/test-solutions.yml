@@ -56,6 +56,9 @@ jobs:
       - name: Test Nim solutions
         run: ./bin/test-nim.sh
 
+      - name: Test PowerShell solutions
+        run: ./bin/test-powershell.sh
+
       - name: Test Python solutions
         run: ./bin/test-python.sh
 

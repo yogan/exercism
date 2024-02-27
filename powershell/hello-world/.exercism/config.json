@@ -1,0 +1,26 @@
+{
+  "authors": [
+    "spuder"
+  ],
+  "contributors": [
+    "gyssels",
+    "kchenery",
+    "kytrinyx",
+    "marcus-crane",
+    "masters3d"
+  ],
+  "files": {
+    "solution": [
+      "HelloWorld.ps1"
+    ],
+    "test": [
+      "HelloWorld.tests.ps1"
+    ],
+    "example": [
+      ".meta/HelloWorld.example.ps1"
+    ]
+  },
+  "blurb": "Exercism's classic introductory exercise. Just say \"Hello, World!\".",
+  "source": "This is an exercise to introduce users to using Exercism",
+  "source_url": "https://en.wikipedia.org/wiki/%22Hello,_world!%22_program"
+}
