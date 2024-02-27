@@ -1,13 +1,10 @@
 proc abbreviate {phrase} {
-    set words [split $phrase { -}]
+    set chars [list]
 
-    set res ""
-
-    foreach word $words {
+    foreach word [split $phrase { -}] {
         set letters [regsub -all -nocase {[^a-z]} $word ""]
-        set first [string toupper [string index $letters 0]]
-        set res "$res$first"
+        lappend chars [string toupper [string index $letters 0]]
     }
 
-    return $res
+    return [join $chars ""]
 }
