@@ -3,8 +3,7 @@ module Acronym (abbreviate) where
 import Data.Char
 
 abbreviate :: String -> String
-abbreviate xs =
-    map toUpper $ map firstLetter $ words $ unCamel $ dashesToSpaces xs
+abbreviate = map (toUpper . firstLetter) . words . unCamel . dashesToSpaces
 
 firstLetter :: String -> Char
 firstLetter [] = error "no empty string pls"
