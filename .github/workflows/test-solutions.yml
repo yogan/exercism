@@ -41,6 +41,9 @@ jobs:
       - name: Test Gleam solutions
         run: ./bin/test-gleam.sh
 
+      - name: Test Haskell solutions
+        run: ./bin/test-haskell.sh
+
       - name: Test JavaScript solutions
         run: ./bin/test-javascript.sh
 
