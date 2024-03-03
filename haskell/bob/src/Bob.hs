@@ -9,16 +9,16 @@ responseFor xs
   | isYelling xs = "Whoa, chill out!"
   | isWhitespace xs = "Fine. Be that way!"
   | otherwise = "Whatever."
-
-isQuestion :: String -> Bool
-isQuestion xs = not (null nonWhitespace) && last nonWhitespace == '?'
   where
-    nonWhitespace = filter (not . isSpace) xs
+    isQuestion :: String -> Bool
+    isQuestion ys = not (null nonWhitespace) && last nonWhitespace == '?'
+      where
+        nonWhitespace = filter (not . isSpace) ys
 
-isYelling :: String -> Bool
-isYelling xs = not (null letters) && all isUpper letters
-  where
-    letters = filter isLetter xs
+    isYelling :: String -> Bool
+    isYelling ys = not (null letters) && all isUpper letters
+      where
+        letters = filter isLetter ys
 
-isWhitespace :: String -> Bool
-isWhitespace = all isSpace
+    isWhitespace :: String -> Bool
+    isWhitespace = all isSpace
