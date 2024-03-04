@@ -1,9 +1,9 @@
 module SumOfMultiples (sumOfMultiples) where
 
-import Data.List (nub)
+import Data.Containers.ListUtils (nubOrd)
 
 sumOfMultiples :: [Integer] -> Integer -> Integer
 sumOfMultiples factors limit =
-  sum $ nub $ concatMap multiples $ filter (/= 0) factors
+  sum $ nubOrd $ concatMap multiples $ filter (/= 0) factors
   where
     multiples n = takeWhile (< limit) [n, n * 2 ..]

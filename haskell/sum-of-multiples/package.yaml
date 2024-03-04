@@ -8,6 +8,8 @@ library:
   exposed-modules: SumOfMultiples
   source-dirs: src
   ghc-options: -Wall
+  dependencies:
+    - containers
 
 tests:
   test:
