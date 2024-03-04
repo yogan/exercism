@@ -1,6 +1,6 @@
 module DNA (nucleotideCounts, Nucleotide (..)) where
 
-import Data.List
+import Data.List (group, sort)
 import Data.Map (Map)
 import qualified Data.Map as Map
 
@@ -8,17 +8,17 @@ data Nucleotide = A | C | G | T deriving (Eq, Ord, Show)
 
 nucleotideCounts :: String -> Either String (Map Nucleotide Int)
 nucleotideCounts dna = case counts of
-  Right xs -> Right $ Map.fromList xs
-  Left err -> Left err
+  Just xs -> Right $ Map.fromList xs
+  Nothing -> Left $ "invalid DNA strand" ++ dna
   where
-    counts = mapM toNucleatideCount $ group $ sort dna
+    counts = mapM count $ group $ sort dna
 
-    toNucleatideCount :: String -> Either String (Nucleotide, Int)
-    toNucleatideCount xs = case xs of
-      [] -> Left "empty dna strand has no nucleotides"
+    count :: String -> Maybe (Nucleotide, Int)
+    count xs = case xs of
+      [] -> Nothing
       x : _ -> case x of
-        'A' -> Right (A, length xs)
-        'C' -> Right (C, length xs)
-        'G' -> Right (G, length xs)
-        'T' -> Right (T, length xs)
-        _ -> Left $ "invalid nucleotide " ++ [x]
+        'A' -> Just (A, length xs)
+        'C' -> Just (C, length xs)
+        'G' -> Just (G, length xs)
+        'T' -> Just (T, length xs)
+        _ -> Nothing
