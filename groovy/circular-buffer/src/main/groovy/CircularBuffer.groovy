@@ -4,62 +4,56 @@ class FullBufferException extends Exception {}
 class CircularBuffer {
 
     private def buffer
-    private def capacity
     private def length
     private def readIndex
     private def writeIndex
 
     CircularBuffer(int capacity) {
-        this.buffer = new int[capacity]
-        this.capacity = capacity
-        this.clear()
+        buffer = new int[capacity]
+        clear()
     }
 
     def clear() {
-        this.length = 0
-        this.readIndex = 0
-        this.writeIndex = 0
+        length = 0
+        readIndex = 0
+        writeIndex = 0
     }
 
     def read() {
-        if(this.length == 0) {
-            throw new EmptyBufferException()
-        }
+        if (length == 0) throw new EmptyBufferException()
 
-        this.length -= 1
+        length -= 1
 
-        def ret = this.buffer[this.readIndex]
-        this.shiftReadIndex()
-        return ret
+        def ret = buffer[readIndex]
+        shiftReadIndex()
+        ret
     }
 
     def write(int item) {
-        if (this.length == this.capacity) {
-            throw new FullBufferException()
-        }
+        if (length == buffer.size()) throw new FullBufferException()
 
-        this.length += 1
+        length += 1
 
-        this.buffer[this.writeIndex] = item
-        this.shiftWriteIndex()
+        buffer[writeIndex] = item
+        shiftWriteIndex()
     }
 
     def overwrite(int item) {
-        if (this.length == this.capacity) {
-            this.shiftReadIndex()
+        if (length == buffer.size()) {
+            shiftReadIndex()
         } else {
-            this.length += 1
+            length += 1
         }
 
-        this.buffer[this.writeIndex] = item
-        this.shiftWriteIndex()
+        buffer[writeIndex] = item
+        shiftWriteIndex()
     }
 
     private def shiftReadIndex() {
-        this.readIndex = (this.readIndex + 1) % this.capacity
+        readIndex = (readIndex + 1) % buffer.size()
     }
 
     private def shiftWriteIndex() {
-        this.writeIndex = (this.writeIndex + 1) % this.capacity
+        writeIndex = (writeIndex + 1) % buffer.size()
     }
 }
