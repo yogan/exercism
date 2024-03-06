@@ -26,6 +26,9 @@ jobs:
       - name: Test Crystal solutions
         run: ./bin/test-crystal.sh
 
+      - name: Test C solutions
+        run: ./bin/test-c.sh
+
       - name: Test C++ solutions
         run: ./bin/test-cpp.sh
 
