@@ -5,7 +5,6 @@ class FullBufferException() extends Exception {}
 class CircularBuffer(var capacity: Int) {
 
   private val buffer     = Array.ofDim[Int](capacity)
-  private var size       = capacity
   private var items      = 0
   private var readIndex  = 0
   private var writeIndex = 0
@@ -45,12 +44,12 @@ class CircularBuffer(var capacity: Int) {
   }
 
   private def isEmpty = items == 0
-  private def isFull  = items == size
+  private def isFull  = items == buffer.size
 
   private def decreaseItems() = items -= 1
   private def increaseItems() = items += 1
 
-  private def shiftReadIndex()  = readIndex  = (readIndex  + 1) % size
-  private def shiftWriteIndex() = writeIndex = (writeIndex + 1) % size
+  private def shiftReadIndex()  = readIndex  = (readIndex  + 1) % buffer.size
+  private def shiftWriteIndex() = writeIndex = (writeIndex + 1) % buffer.size
 
 }
