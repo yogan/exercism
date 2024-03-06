@@ -17,30 +17,35 @@ class CircularBuffer(var capacity: Int) {
   }
 
   def read(): Int = {
-    if (items == 0) throw new EmptyBufferException()
-
+    if (isEmpty) throw new EmptyBufferException()
     decreaseItems()
+    readFromBuffer()
+  }
 
+  def write(value: Int) = {
+    if (isFull) throw new FullBufferException()
+    increaseItems()
+    writeToBuffer(value)
+  }
+
+  def overwrite(value: Int) = {
+    if (isFull) shiftReadIndex() else increaseItems()
+    writeToBuffer(value)
+  }
+
+  private def readFromBuffer() = {
     val value = buffer(readIndex)
     shiftReadIndex()
     value
   }
 
-  def write(value: Int) = {
-    if (items == size) throw new FullBufferException()
-
-    increaseItems()
-
+  private def writeToBuffer(value: Int) = {
     buffer.update(writeIndex, value)
     shiftWriteIndex()
   }
 
-  def overwrite(value: Int) = {
-    if (items == size) shiftReadIndex() else increaseItems()
-
-    buffer.update(writeIndex, value)
-    shiftWriteIndex()
-  }
+  private def isEmpty = items == 0
+  private def isFull  = items == size
 
   private def decreaseItems() = items -= 1
   private def increaseItems() = items += 1
