@@ -77,6 +77,9 @@ jobs:
       - name: Test Ruby solutions
         run: ./bin/test-ruby.sh
 
+      - name: Test Scala solutions
+        run: ./bin/test-scala.sh
+
       - name: Test Standard ML solutions
         run: ./bin/test-sml.sh
 
