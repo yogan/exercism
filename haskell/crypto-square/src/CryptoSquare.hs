@@ -8,11 +8,10 @@ encode [] = []
 encode xs = unwords $ transpose $ toRows xs
 
 toRows :: String -> [String]
-toRows xs = rows
+toRows xs = map (pad c) $ chunksOf c n
   where
     n = normalize xs
     (c, _) = dimensions n
-    rows = map (pad c) $ chunksOf c n
 
 normalize :: String -> String
 normalize [] = []
@@ -21,10 +20,8 @@ normalize (x : xs)
   | otherwise = normalize xs
 
 dimensions :: String -> (Int, Int)
-dimensions xs = (c, r)
+dimensions xs = (ceiling s, floor s)
   where
-    c = ceiling s
-    r = floor s
     s = sqrt $ fromIntegral $ length xs
 
 pad :: Int -> String -> String
