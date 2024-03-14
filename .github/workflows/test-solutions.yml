@@ -50,6 +50,9 @@ jobs:
       - name: Test Haskell solutions
         run: ./bin/test-haskell.sh
 
+      - name: Test Java solutions
+        run: ./bin/test-java.sh
+
       - name: Test JavaScript solutions
         run: ./bin/test-javascript.sh
 
