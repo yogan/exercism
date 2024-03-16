@@ -5,12 +5,12 @@ dirs=$(ls -d -- */)
 exit_code=0
 
 for dir in $dirs; do
-  cd "$dir" || exit 1
-  printf "\nTesting %s\n" "$(basename "$dir")"
-  if ! ../../bin/run-mips.sh ; then
-    exit_code=1
-  fi
-  cd ..
+	cd "$dir" || exit 1
+	printf "\nTesting %s\n" "$(basename "$dir")"
+	if ! ../../bin/run-mips.sh; then
+		exit_code=1
+	fi
+	cd ..
 done
 
 return $exit_code
