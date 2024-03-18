@@ -44,6 +44,9 @@ jobs:
       - name: Test Gleam solutions
         run: ./bin/test-gleam.sh
 
+      - name: Test Go solutions
+        run: ./bin/test-go.sh
+
       - name: Test Groovy solutions
         run: ./bin/test-groovy.sh
 
