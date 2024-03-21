@@ -17,106 +17,217 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Mark workspace as safe for git clean
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+
+      - name: Debug disk space
+        run: df -h | grep root
+        if: success() || failure()
+
       - name: Test Clojure solutions
-        run: ./bin/test-clojure.sh
+        run: ./bin/test-clojure.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Common LISP solutions
-        run: ./bin/test-common-lisp.sh
+        run: ./bin/test-common-lisp.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Crystal solutions
-        run: ./bin/test-crystal.sh
+        run: ./bin/test-crystal.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test C solutions
-        run: ./bin/test-c.sh
+        run: ./bin/test-c.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test C++ solutions
-        run: ./bin/test-cpp.sh
+        run: ./bin/test-cpp.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test C# solutions
-        run: ./bin/test-dotnet.sh csharp
+        run: ./bin/test-dotnet.sh csharp ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Elixir solutions
-        run: ./bin/test-elixir.sh
+        run: ./bin/test-elixir.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test F# solutions
-        run: ./bin/test-dotnet.sh fsharp
+        run: ./bin/test-dotnet.sh fsharp ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Gleam solutions
-        run: ./bin/test-gleam.sh
+        run: ./bin/test-gleam.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Go solutions
-        run: ./bin/test-go.sh
+        run: ./bin/test-go.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Groovy solutions
-        run: ./bin/test-groovy.sh
+        run: ./bin/test-groovy.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Haskell solutions
-        run: ./bin/test-haskell.sh
+        run: ./bin/test-haskell.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Java solutions
-        run: ./bin/test-java.sh
+        run: ./bin/test-java.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test JavaScript solutions
-        run: ./bin/test-javascript.sh
+        run: ./bin/test-javascript.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Julia solutions
-        run: ./bin/test-julia.sh
+        run: ./bin/test-julia.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Kotlin solutions
-        run: ./bin/test-kotlin.sh
+        run: ./bin/test-kotlin.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test MIPS Assembly solutions
-        run: ./bin/test-mips.sh
+        run: ./bin/test-mips.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Nim solutions
-        run: ./bin/test-nim.sh
+        run: ./bin/test-nim.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test PowerShell solutions
-        run: ./bin/test-powershell.sh
+        run: ./bin/test-powershell.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Python solutions
-        run: ./bin/test-python.sh
+        run: ./bin/test-python.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test R solutions
-        run: ./bin/test-r.sh
+        run: ./bin/test-r.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Ruby solutions
-        run: ./bin/test-ruby.sh
+        run: ./bin/test-ruby.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Scala solutions
-        run: ./bin/test-scala.sh
+        run: ./bin/test-scala.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Standard ML solutions
-        run: ./bin/test-sml.sh
+        run: ./bin/test-sml.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Swift solutions
-        run: ./bin/test-swift.sh
+        run: ./bin/test-swift.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
 
       - name: Test Tcl solutions
-        run: ./bin/test-tcl.sh
+        run: ./bin/test-tcl.sh ; git clean -fxd
+        if: success() || failure()
+
+      - name: Debug disk space
+        run: df -h | grep root
         if: success() || failure()
