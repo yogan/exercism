@@ -19,78 +19,104 @@ jobs:
 
       - name: Test Clojure solutions
         run: ./bin/test-clojure.sh
+        if: success() || failure()
 
       - name: Test Common LISP solutions
         run: ./bin/test-common-lisp.sh
+        if: success() || failure()
 
       - name: Test Crystal solutions
         run: ./bin/test-crystal.sh
+        if: success() || failure()
 
       - name: Test C solutions
         run: ./bin/test-c.sh
+        if: success() || failure()
 
       - name: Test C++ solutions
         run: ./bin/test-cpp.sh
+        if: success() || failure()
 
       - name: Test C# solutions
         run: ./bin/test-dotnet.sh csharp
+        if: success() || failure()
 
       - name: Test Elixir solutions
         run: ./bin/test-elixir.sh
+        if: success() || failure()
 
       - name: Test F# solutions
         run: ./bin/test-dotnet.sh fsharp
+        if: success() || failure()
 
       - name: Test Gleam solutions
         run: ./bin/test-gleam.sh
+        if: success() || failure()
 
       - name: Test Go solutions
         run: ./bin/test-go.sh
+        if: success() || failure()
 
       - name: Test Groovy solutions
         run: ./bin/test-groovy.sh
+        if: success() || failure()
 
       - name: Test Haskell solutions
         run: ./bin/test-haskell.sh
+        if: success() || failure()
 
       - name: Test Java solutions
         run: ./bin/test-java.sh
+        if: success() || failure()
 
       - name: Test JavaScript solutions
         run: ./bin/test-javascript.sh
+        if: success() || failure()
 
       - name: Test Julia solutions
         run: ./bin/test-julia.sh
+        if: success() || failure()
 
       - name: Test Kotlin solutions
         run: ./bin/test-kotlin.sh
+        if: success() || failure()
 
       - name: Test MIPS Assembly solutions
         run: ./bin/test-mips.sh
+        if: success() || failure()
 
       - name: Test Nim solutions
         run: ./bin/test-nim.sh
+        if: success() || failure()
 
       - name: Test PowerShell solutions
         run: ./bin/test-powershell.sh
+        if: success() || failure()
 
       - name: Test Python solutions
         run: ./bin/test-python.sh
+        if: success() || failure()
 
       - name: Test R solutions
         run: ./bin/test-r.sh
+        if: success() || failure()
 
       - name: Test Ruby solutions
         run: ./bin/test-ruby.sh
+        if: success() || failure()
 
       - name: Test Scala solutions
         run: ./bin/test-scala.sh
+        if: success() || failure()
 
       - name: Test Standard ML solutions
         run: ./bin/test-sml.sh
+        if: success() || failure()
 
       - name: Test Swift solutions
         run: ./bin/test-swift.sh
+        if: success() || failure()
 
       - name: Test Tcl solutions
         run: ./bin/test-tcl.sh
+        if: success() || failure()
