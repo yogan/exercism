@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 class ParallelLetterFrequency {
 
@@ -11,18 +12,14 @@ class ParallelLetterFrequency {
     }
 
     Map<Character, Integer> countLetters() {
-        Map<Character, Integer> accFreq = new HashMap<>();
-
-        Arrays.asList(this.texts)
-                .parallelStream()
+        return Arrays.stream(texts)
+                .parallel()
                 .map(text -> this.countLetters(text))
-                .forEach(freq -> {
-                    freq.forEach((letter, count) -> accFreq.put(
-                            letter,
-                            accFreq.getOrDefault(letter, 0) + count));
-                });
-
-        return accFreq;
+                .flatMap(map -> map.entrySet().stream())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        Integer::sum));
     }
 
     private Map<Character, Integer> countLetters(String text) {
