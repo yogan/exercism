@@ -18,216 +18,296 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Mark workspace as safe for git clean
-        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+        run: |
+          git config --global --add safe.directory $GITHUB_WORKSPACE
+          df -h | grep root > /disk_space.log
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Clojure - test solutions
+        run: ./bin/test-clojure.sh
         if: success() || failure()
 
-      - name: Test Clojure solutions
-        run: ./bin/test-clojure.sh ; git clean -fxd
+      - name: Clojure - cleanup
+        run: |
+          git clean -fxd
+          echo "Clojure done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Common LISP - test solutions
+        run: ./bin/test-common-lisp.sh
         if: success() || failure()
 
-      - name: Test Common LISP solutions
-        run: ./bin/test-common-lisp.sh ; git clean -fxd
+      - name: Common LISP - cleanup
+        run: |
+          git clean -fxd
+          echo "Common LISP done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Crystal - test solutions
+        run: ./bin/test-crystal.sh
         if: success() || failure()
 
-      - name: Test Crystal solutions
-        run: ./bin/test-crystal.sh ; git clean -fxd
+      - name: Crystal - cleanup
+        run: |
+          git clean -fxd
+          echo "Crystal done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: C - test solutions
+        run: ./bin/test-c.sh
         if: success() || failure()
 
-      - name: Test C solutions
-        run: ./bin/test-c.sh ; git clean -fxd
+      - name: C - cleanup
+        run: |
+          git clean -fxd
+          echo "C done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: C++ - test solutions
+        run: ./bin/test-cpp.sh
         if: success() || failure()
 
-      - name: Test C++ solutions
-        run: ./bin/test-cpp.sh ; git clean -fxd
+      - name: C++ - cleanup
+        run: |
+          git clean -fxd
+          echo "C++ done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: C# - test solutions
+        run: ./bin/test-dotnet.sh csharp
         if: success() || failure()
 
-      - name: Test C# solutions
-        run: ./bin/test-dotnet.sh csharp ; git clean -fxd
+      - name: C# - cleanup
+        run: |
+          git clean -fxd
+          echo "C# done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Elixir - test solutions
+        run: ./bin/test-elixir.sh
         if: success() || failure()
 
-      - name: Test Elixir solutions
-        run: ./bin/test-elixir.sh ; git clean -fxd
+      - name: Elixir - cleanup
+        run: |
+          git clean -fxd
+          echo "Elixir done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: F# - test solutions
+        run: ./bin/test-dotnet.sh fsharp
         if: success() || failure()
 
-      - name: Test F# solutions
-        run: ./bin/test-dotnet.sh fsharp ; git clean -fxd
+      - name: F# - cleanup
+        run: |
+          git clean -fxd
+          echo "F# done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Gleam - test solutions
+        run: ./bin/test-gleam.sh
         if: success() || failure()
 
-      - name: Test Gleam solutions
-        run: ./bin/test-gleam.sh ; git clean -fxd
+      - name: Gleam - cleanup
+        run: |
+          git clean -fxd
+          echo "Gleam done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Go - test solutions
+        run: ./bin/test-go.sh
         if: success() || failure()
 
-      - name: Test Go solutions
-        run: ./bin/test-go.sh ; git clean -fxd
+      - name: Go - cleanup
+        run: |
+          git clean -fxd
+          echo "Go done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Groovy - test solutions
+        run: ./bin/test-groovy.sh
         if: success() || failure()
 
-      - name: Test Groovy solutions
-        run: ./bin/test-groovy.sh ; git clean -fxd
+      - name: Groovy - cleanup
+        run: |
+          git clean -fxd
+          echo "Groovy done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Haskell - test solutions
+        run: ./bin/test-haskell.sh
         if: success() || failure()
 
-      - name: Test Haskell solutions
-        run: ./bin/test-haskell.sh ; git clean -fxd
+      - name: Haskell - cleanup
+        run: |
+          git clean -fxd
+          echo "Haskell done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Java - test solutions
+        run: ./bin/test-java.sh
         if: success() || failure()
 
-      - name: Test Java solutions
-        run: ./bin/test-java.sh ; git clean -fxd
+      - name: Java - cleanup
+        run: |
+          git clean -fxd
+          echo "Java done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: JavaScript - test solutions
+        run: ./bin/test-javascript.sh
         if: success() || failure()
 
-      - name: Test JavaScript solutions
-        run: ./bin/test-javascript.sh ; git clean -fxd
+      - name: JavaScript - cleanup
+        run: |
+          git clean -fxd
+          echo "JavaScript done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Julia - test solutions
+        run: ./bin/test-julia.sh
         if: success() || failure()
 
-      - name: Test Julia solutions
-        run: ./bin/test-julia.sh ; git clean -fxd
+      - name: Julia - cleanup
+        run: |
+          git clean -fxd
+          echo "Julia done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Kotlin - test solutions
+        run: ./bin/test-kotlin.sh
         if: success() || failure()
 
-      - name: Test Kotlin solutions
-        run: ./bin/test-kotlin.sh ; git clean -fxd
+      - name: Kotlin - cleanup
+        run: |
+          git clean -fxd
+          echo "Kotlin done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: MIPS Assembly - test solutions
+        run: ./bin/test-mips.sh
         if: success() || failure()
 
-      - name: Test MIPS Assembly solutions
-        run: ./bin/test-mips.sh ; git clean -fxd
+      - name: MIPS Assembly - cleanup
+        run: |
+          git clean -fxd
+          echo "MIPS done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Nim - test solutions
+        run: ./bin/test-nim.sh
         if: success() || failure()
 
-      - name: Test Nim solutions
-        run: ./bin/test-nim.sh ; git clean -fxd
+      - name: Nim - cleanup
+        run: |
+          git clean -fxd
+          echo "Nim done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: PowerShell - test solutions
+        run: ./bin/test-powershell.sh
         if: success() || failure()
 
-      - name: Test PowerShell solutions
-        run: ./bin/test-powershell.sh ; git clean -fxd
+      - name: PowerShell - cleanup
+        run: |
+          git clean -fxd
+          echo "PowerShell done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Python - test solutions
+        run: ./bin/test-python.sh
         if: success() || failure()
 
-      - name: Test Python solutions
-        run: ./bin/test-python.sh ; git clean -fxd
+      - name: Python - cleanup
+        run: |
+          git clean -fxd
+          echo "Python done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: R - test solutions
+        run: ./bin/test-r.sh
         if: success() || failure()
 
-      - name: Test R solutions
-        run: ./bin/test-r.sh ; git clean -fxd
+      - name: R - cleanup
+        run: |
+          git clean -fxd
+          echo "R done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Ruby - test solutions
+        run: ./bin/test-ruby.sh
         if: success() || failure()
 
-      - name: Test Ruby solutions
-        run: ./bin/test-ruby.sh ; git clean -fxd
+      - name: Ruby - cleanup
+        run: |
+          git clean -fxd
+          echo "Ruby done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Scala - test solutions
+        run: ./bin/test-scala.sh
         if: success() || failure()
 
-      - name: Test Scala solutions
-        run: ./bin/test-scala.sh ; git clean -fxd
+      - name: Scala - cleanup
+        run: |
+          git clean -fxd
+          echo "Scala done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Standard ML - test solutions
+        run: ./bin/test-sml.sh
         if: success() || failure()
 
-      - name: Test Standard ML solutions
-        run: ./bin/test-sml.sh ; git clean -fxd
+      - name: Standard ML - cleanup
+        run: |
+          git clean -fxd
+          echo "Standard ML done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Swift - test solutions
+        run: ./bin/test-swift.sh
         if: success() || failure()
 
-      - name: Test Swift solutions
-        run: ./bin/test-swift.sh ; git clean -fxd
+      - name: Swift - cleanup
+        run: |
+          git clean -fxd
+          echo "Swift done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Tcl - test solutions
+        run: ./bin/test-tcl.sh
         if: success() || failure()
 
-      - name: Test Tcl solutions
-        run: ./bin/test-tcl.sh ; git clean -fxd
+      - name: Tcl - cleanup
+        run: |
+          git clean -fxd
+          echo "Tcl done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
-      - name: Debug disk space
-        run: df -h | grep root
+      - name: Print disk space log
+        run: cat /disk_space.log
         if: success() || failure()
