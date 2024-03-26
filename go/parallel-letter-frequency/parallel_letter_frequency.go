@@ -26,8 +26,8 @@ func ConcurrentFrequency(texts []string) FreqMap {
 
 	frequencies := FreqMap{}
 	for range texts {
-		for k, v := range <-c {
-			frequencies[k] += v
+		for letter, count := range <-c {
+			frequencies[letter] += count
 		}
 	}
 	return frequencies
