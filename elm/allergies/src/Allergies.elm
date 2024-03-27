@@ -29,19 +29,9 @@ allergies =
 
 allergyToMask : Allergy -> Int
 allergyToMask allergy =
-    let
-        extractMask : List ( Int, Allergy ) -> Int
-        extractMask xs =
-            case xs of
-                [] ->
-                    0
-
-                x :: _ ->
-                    Tuple.first x
-    in
     allergies
         |> List.filter (\( _, a ) -> a == allergy)
-        |> extractMask
+        |> List.foldl (\( x, _ ) _ -> x) 0
 
 
 isAllergicTo : Allergy -> Int -> Bool
