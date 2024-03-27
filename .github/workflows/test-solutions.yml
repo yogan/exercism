@@ -99,6 +99,17 @@ jobs:
           df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
+      - name: Elm - test solutions
+        run: ./bin/test-elm.sh
+        if: success() || failure()
+
+      - name: Elm - cleanup
+        run: |
+          git clean -fxd
+          echo "Elm done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
+        if: success() || failure()
+
       - name: F# - test solutions
         run: ./bin/test-dotnet.sh fsharp
         if: success() || failure()
