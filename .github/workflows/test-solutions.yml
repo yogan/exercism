@@ -275,6 +275,17 @@ jobs:
           df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
+      - name: Rust - test solutions
+        run: ./bin/test-rust.sh
+        if: success() || failure()
+
+      - name: Rust - cleanup
+        run: |
+          git clean -fxd
+          echo "Rust done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
+        if: success() || failure()
+
       - name: Scala - test solutions
         run: ./bin/test-scala.sh
         if: success() || failure()
