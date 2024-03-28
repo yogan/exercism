@@ -18,9 +18,8 @@ fn sieve(buffer: []u32, limit: u32) ![]u32 {
     for (2..std.math.sqrt(limit) + 1) |i| {
         if (is_prime[i]) {
             var j = 2 * i;
-            while (j <= limit) {
+            while (j <= limit) : (j += i) {
                 is_prime[j] = false;
-                j += i;
             }
         }
     }
