@@ -5,8 +5,6 @@ pub fn primes(buffer: []u32, limit: u32) []u32 {
 }
 
 fn sieve(buffer: []u32, limit: u32) ![]u32 {
-    _ = buffer;
-
     const allocator = std.heap.page_allocator;
     const is_prime = try allocator.alloc(bool, limit + 1);
     defer allocator.free(is_prime);
@@ -21,14 +19,14 @@ fn sieve(buffer: []u32, limit: u32) ![]u32 {
         }
     }
 
-    var prime_numbers = std.ArrayList(u32).init(allocator);
-    defer prime_numbers.deinit();
+    var buffer_idx: usize = 0;
 
     for (2..limit + 1) |i| {
         if (is_prime[i]) {
-            try prime_numbers.append(@intCast(i));
+            buffer[buffer_idx] = @intCast(i);
+            buffer_idx += 1;
         }
     }
 
-    return prime_numbers.toOwnedSlice();
+    return buffer[0..buffer_idx];
 }
