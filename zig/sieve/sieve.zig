@@ -10,10 +10,7 @@ fn sieve(buffer: []u32, limit: u32) ![]u32 {
     const allocator = std.heap.page_allocator;
     const is_prime = try allocator.alloc(bool, limit + 1);
     defer allocator.free(is_prime);
-
-    for (2..limit + 1) |i| {
-        is_prime[i] = true;
-    }
+    @memset(is_prime, true);
 
     for (2..std.math.sqrt(limit) + 1) |i| {
         if (is_prime[i]) {
