@@ -1,20 +1,13 @@
 const std = @import("std");
 
-pub fn primes(buffer: []u32, limit: u32) []u32 {
-    return sieve(buffer, limit) catch unreachable;
-}
-
-fn sieve(buffer: []u32, limit: u32) ![]u32 {
-    const allocator = std.heap.page_allocator;
-    const is_prime = try allocator.alloc(bool, limit + 1);
-    defer allocator.free(is_prime);
-    @memset(is_prime, true);
+pub fn primes(buffer: []u32, comptime limit: u32) []u32 {
+    var prime_bits = std.StaticBitSet(limit + 1).initFull();
 
     for (2..std.math.sqrt(limit) + 1) |i| {
-        if (is_prime[i]) {
+        if (prime_bits.isSet(i)) {
             var j = 2 * i;
             while (j <= limit) : (j += i) {
-                is_prime[j] = false;
+                prime_bits.unset(j);
             }
         }
     }
@@ -22,7 +15,7 @@ fn sieve(buffer: []u32, limit: u32) ![]u32 {
     var buffer_idx: usize = 0;
 
     for (2..limit + 1) |i| {
-        if (is_prime[i]) {
+        if (prime_bits.isSet(i)) {
             buffer[buffer_idx] = @intCast(i);
             buffer_idx += 1;
         }
