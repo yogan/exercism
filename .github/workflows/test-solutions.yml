@@ -330,6 +330,17 @@ jobs:
           df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
+      - name: Zig - test solutions
+        run: ./bin/test-zig.sh
+        if: success() || failure()
+
+      - name: Zig - cleanup
+        run: |
+          git clean -fxd
+          echo "Zig done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
+        if: success() || failure()
+
       - name: Print disk space log
         run: cat /disk_space.log
         if: success() || failure()
