@@ -22,6 +22,17 @@ jobs:
           git config --global --add safe.directory $GITHUB_WORKSPACE
           df -h | grep root > /disk_space.log
 
+      - name: Bash - test solutions
+        run: ./bin/test-bash.sh
+        if: success() || failure()
+
+      - name: Bash - cleanup
+        run: |
+          git clean -fxd
+          echo "Bash done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
+        if: success() || failure()
+
       - name: Clojure - test solutions
         run: ./bin/test-clojure.sh
         if: success() || failure()
