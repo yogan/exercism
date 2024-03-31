@@ -121,6 +121,17 @@ jobs:
           df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
+      - name: Fortran - test solutions
+        run: ./bin/test-fortran.sh
+        if: success() || failure()
+
+      - name: Fortran - cleanup
+        run: |
+          git clean -fxd
+          echo "Fortran done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
+        if: success() || failure()
+
       - name: F# - test solutions
         run: ./bin/test-dotnet.sh fsharp
         if: success() || failure()
