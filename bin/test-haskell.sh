@@ -22,4 +22,9 @@ for dir in $dirs; do
 	cd ..
 done
 
+if [ -n "$GITHUB_ACTIONS" ]; then
+	echo "Running in GitHub Actions, cleaning up ~/.stack directory"
+	rm -rf "$HOME/.stack"
+fi
+
 return $exit_code
