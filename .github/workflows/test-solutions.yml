@@ -253,6 +253,17 @@ jobs:
           df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
+      - name: Perl - test solutions
+        run: ./bin/test-perl.sh
+        if: success() || failure()
+
+      - name: Perl - cleanup
+        run: |
+          git clean -fxd
+          echo "Perl done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
+        if: success() || failure()
+
       - name: PowerShell - test solutions
         run: ./bin/test-powershell.sh
         if: success() || failure()
