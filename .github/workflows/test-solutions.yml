@@ -22,6 +22,17 @@ jobs:
           git config --global --add safe.directory $GITHUB_WORKSPACE
           df -h | grep root > /disk_space.log
 
+      - name: AWK - test solutions
+        run: ./bin/test-awk.sh
+        if: success() || failure()
+
+      - name: AWK - cleanup
+        run: |
+          git clean -fxd
+          echo "AWK done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
+        if: success() || failure()
+
       - name: Bash - test solutions
         run: ./bin/test-bash.sh
         if: success() || failure()
