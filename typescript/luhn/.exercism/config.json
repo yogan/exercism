@@ -1,0 +1,24 @@
+{
+  "authors": [
+    "CRivasGomez"
+  ],
+  "contributors": [
+    "masters3d",
+    "SleeplessByte",
+    "angelikatyborska"
+  ],
+  "files": {
+    "solution": [
+      "luhn.ts"
+    ],
+    "test": [
+      "luhn.test.ts"
+    ],
+    "example": [
+      ".meta/proof.ci.ts"
+    ]
+  },
+  "blurb": "Given a number determine whether or not it is valid per the Luhn formula.",
+  "source": "The Luhn Algorithm on Wikipedia",
+  "source_url": "https://en.wikipedia.org/wiki/Luhn_algorithm"
+}
