@@ -24,8 +24,5 @@ BEGIN { FS = "" }
         sum = sum + $i
     }
 
-    if (sum % 10 == 0)
-        print "true"
-    else
-        print "false"
+    print (sum % 10 == 0) ? "true" : "false"
 }
