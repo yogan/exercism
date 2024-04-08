@@ -1,17 +1,19 @@
-BEGIN { FS = "" }
-/^[[:space:]]*0?[[:space:]]*$/ {
+function invalid() {
     print "false"
     exit
 }
+
+BEGIN { FS = "" }
+
+/^[[:space:]]*0?[[:space:]]*$/ { invalid() }
+
 {
     for (i = NF; i > 0; i = i - 1) {
         if ($i ~ /[[:space:]]/)
             continue
 
-        if ($i !~ /[[:digit:]]/) {
-            print "false"
-            exit
-        }
+        if ($i !~ /[[:digit:]]/)
+            invalid()
 
         digits = digits + 1
 
