@@ -7,6 +7,9 @@ on:
   pull_request:
     branches:
       - main
+  schedule:
+    # run every night at 2:42 UTC (3:42/4:42 German time)
+    - cron: '42 3 * * *'
 
 jobs:
   test-solutions:
