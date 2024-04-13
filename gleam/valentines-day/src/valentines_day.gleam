@@ -32,11 +32,8 @@ pub fn rate_activity(activity: Activity) -> Approval {
     Movie(_) -> No
     Restaurant(Korean) -> Yes
     Restaurant(_) -> Maybe
-    Walk(distance) ->
-      case distance {
-        d if d > 11 -> Yes
-        d if d > 6 -> Maybe
-        _ -> No
-      }
+    Walk(distance) if distance > 11 -> Yes
+    Walk(distance) if distance > 6 -> Maybe
+    _ -> No
   }
 }
