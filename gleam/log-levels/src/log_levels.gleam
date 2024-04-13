@@ -5,7 +5,7 @@ pub fn message(log_line: String) -> String {
     "[ERROR]: " <> rest -> rest
     "[WARNING]: " <> rest -> rest
     "[INFO]: " <> rest -> rest
-    s -> s
+    _ -> panic as "Invalid log line"
   }
   |> string.trim
 }
@@ -15,7 +15,7 @@ pub fn log_level(log_line: String) -> String {
     "[ERROR]: " <> _ -> "error"
     "[WARNING]: " <> _ -> "warning"
     "[INFO]: " <> _ -> "info"
-    _ -> ""
+    _ -> panic as "invalid log line"
   }
 }
 
