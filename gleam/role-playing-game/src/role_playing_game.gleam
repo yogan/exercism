@@ -6,10 +6,8 @@ pub type Player {
 }
 
 pub fn introduce(player: Player) -> String {
-  case player.name {
-    None -> "Mighty Magician"
-    Some(name) -> name
-  }
+  player.name
+  |> option.unwrap(or: "Mighty Magician")
 }
 
 pub fn revive(player: Player) -> Option(Player) {
