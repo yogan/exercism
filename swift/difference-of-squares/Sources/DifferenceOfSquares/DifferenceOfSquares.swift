@@ -1,23 +1,17 @@
 class Squares {
-    var n: Int
+    var numbers: ClosedRange<Int>
+
     init(_ n: Int) {
-        self.n = n
+        numbers = 1 ... n
     }
 
     var squareOfSum: Int {
-        var sum = 0
-        for i in 1 ... n {
-            sum += i
-        }
+        let sum = numbers.reduce(0, +)
         return sum * sum
     }
 
     var sumOfSquares: Int {
-        var sum = 0
-        for i in 1 ... n {
-            sum += i * i
-        }
-        return sum
+        return numbers.map { $0 * $0 }.reduce(0, +)
     }
 
     var differenceOfSquares: Int {
