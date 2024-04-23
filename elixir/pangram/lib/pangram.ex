@@ -15,10 +15,9 @@ defmodule Pangram do
   @spec pangram?(String.t()) :: boolean
   def pangram?(sentence) do
     sentence
-    |> String.downcase()
-    |> String.graphemes()
-    |> Enum.uniq()
-    |> Enum.filter(fn c -> c =~ ~r/[a-z]/ end)
-    |> Enum.count() == Enum.count(?a..?z)
+    |> String.downcase
+    |> String.graphemes
+    |> Enum.uniq
+    |> Enum.count(fn c -> c =~ ~r/[a-z]/ end) == Enum.count(?a..?z)
   end
 end
