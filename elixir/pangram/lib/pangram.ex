@@ -19,6 +19,6 @@ defmodule Pangram do
     |> String.graphemes()
     |> Enum.uniq()
     |> Enum.filter(fn c -> c =~ ~r/[a-z]/ end)
-    |> Enum.count() == 26
+    |> Enum.count() == Enum.count(?a..?z)
   end
 end
