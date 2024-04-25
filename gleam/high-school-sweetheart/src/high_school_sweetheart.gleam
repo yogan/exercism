@@ -24,25 +24,22 @@ pub fn initials(full_name: String) {
 }
 
 pub fn pair(full_name1: String, full_name2: String) {
-  let i1 = initials(full_name1)
-  let i2 = initials(full_name2)
-  [
-    "",
-    "     ******       ******",
-    "   **      **   **      **",
-    " **         ** **         **",
-    "**            *            **",
-    "**                         **",
-    "**     " <> i1 <> "  +  " <> i2 <>"     **",
-    " **                       **",
-    "   **                   **",
-    "     **               **",
-    "       **           **",
-    "         **       **",
-    "           **   **",
-    "             ***",
-    "              *",
-    "",
-  ]
-  |> string.join("\n")
+  let l = initials(full_name1)
+  let r = initials(full_name2)
+  "
+     ******       ******
+   **      **   **      **
+ **         ** **         **
+**            *            **
+**                         **
+**     " <> l <> "  +  " <> r <> "     **
+ **                       **
+   **                   **
+     **               **
+       **           **
+         **       **
+           **   **
+             ***
+              *
+"
 }
