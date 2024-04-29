@@ -19,7 +19,7 @@ pub fn count_place_treasures(
 ) -> Int {
   let place = place_location_to_treasure_location(place.1)
   list.filter(treasures, fn(treasure) { treasure.1 == place })
-  |> list.fold(0, fn(acc, _) { acc + 1 })
+  |> list.length
 }
 
 pub fn special_case_swap_possible(
