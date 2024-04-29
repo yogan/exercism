@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "lpil"
+  ],
+  "files": {
+    "solution": [
+      "src/weather_ranking.gleam"
+    ],
+    "test": [
+      "test/weather_ranking_test.gleam"
+    ],
+    "exemplar": [
+      ".meta/example.gleam"
+    ],
+    "invalidator": [
+      "gleam.toml",
+      "manifest.toml"
+    ]
+  },
+  "blurb": "Learn about the Order type by ranking weather conditions"
+}
