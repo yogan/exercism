@@ -135,6 +135,17 @@ jobs:
           df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
+      - name: Erlang - test solutions
+        run: ./bin/test-erlang.sh
+        if: success() || failure()
+
+      - name: Erlang - cleanup
+        run: |
+          git clean -fxd
+          echo "Erlang done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
+        if: success() || failure()
+
       - name: Fortran - test solutions
         run: ./bin/test-fortran.sh
         if: success() || failure()
