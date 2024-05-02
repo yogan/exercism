@@ -31,8 +31,8 @@ class AllYourBase {
 
         def output = []
         while (number > 0) {
-            output.add(0, number % outputBase)
-            number = (number / outputBase).toInteger()
+            output.push(number % outputBase)
+            number = number.intdiv(outputBase)
         }
         output
     }
