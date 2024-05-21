@@ -300,6 +300,17 @@ jobs:
           df -h | grep root | tee -a /disk_space.log
         if: success() || failure()
 
+      - name: Prolog - test solutions
+        run: ./bin/test-prolog.sh
+        if: success() || failure()
+
+      - name: Prolog - cleanup
+        run: |
+          git clean -fxd
+          echo "Prolog done" >> /disk_space.log
+          df -h | grep root | tee -a /disk_space.log
+        if: success() || failure()
+
       - name: Python - test solutions
         run: ./bin/test-python.sh
         if: success() || failure()
