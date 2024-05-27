@@ -1,10 +1,10 @@
 class Minesweeper
-  @@MINE = '*'
+  @@mine = '*'
 
   @board : Array(Array(Char))
 
   def initialize(board)
-    @board = board.map { |row| row.chars }
+    @board = board.map &.chars
   end
 
   def annotate
@@ -12,14 +12,14 @@ class Minesweeper
 
     @board.each_index do |r|
       @board[r].each_index do |c|
-        if @board[r][c] != @@MINE
+        if @board[r][c] != @@mine
           count = count_mines(r, c)
           annotated_board[r][c] = count.to_s[0] if count > 0
         end
       end
     end
 
-    annotated_board.map { |row| row.join }
+    annotated_board.map &.join
   end
 
   private def count_mines(r, c)
@@ -31,7 +31,7 @@ class Minesweeper
         cc = c + dc
         if rr >= 0 && rr < @board.size &&
            cc >= 0 && cc < @board[0].size &&
-           @board[rr][cc] == @@MINE
+           @board[rr][cc] == @@mine
           count += 1
         end
       end
