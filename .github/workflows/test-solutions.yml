@@ -21,9 +21,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Mark workspace as safe for git clean
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+
+      - name: Increase disk space by deleting unnecessary stuff
         run: |
-          git config --global --add safe.directory $GITHUB_WORKSPACE
-          df -h | grep root > /disk_space.log
+          df -h | grep root | awk '{print $4}' | tee -a /disk_space.log
+          rm -rf /__t/CodeQL /__t/Python /__t/PyPy /__t/node /__t/go /__t/Ruby
+          df -h | grep root | awk '{print $4}' | tee -a /disk_space.log
 
       - name: AWK - test solutions
         run: ./bin/test-awk.sh

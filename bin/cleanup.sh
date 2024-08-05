@@ -9,4 +9,4 @@ logfile=$2
 
 git clean -fxd
 echo "$lang done" >> "$logfile"
-df -h | grep root | tee -a "$logfile"
+df -h | grep root | awk '{print $4}' | tee -a "$logfile"
