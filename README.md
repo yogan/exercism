@@ -13,3 +13,5 @@ Solutions to Exercism exercises in many different languages.
       https://learnyouahaskell.github.io/chapters.html)
     - [Haskell Data Types in 5 Steps](
       https://mmhaskell.com/blog/2017/12/24/haskell-data-types-in-5-steps)
+    - [Functors, Applicatives, And Monads In Pictures](
+      https://www.adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html)
