@@ -1,5 +1,4 @@
 import gleam/dict.{type Dict}
-import gleam/list
 
 pub type ScoreBoard =
   Dict(String, Int)
@@ -32,8 +31,5 @@ pub fn update_score(
 }
 
 pub fn apply_monday_bonus(score_board: ScoreBoard) -> ScoreBoard {
-  score_board
-  |> dict.to_list
-  |> list.map(fn(pair) { #(pair.0, pair.1 + 100) })
-  |> dict.from_list
+  dict.map_values(score_board, fn(_, points) { points + 100 })
 }
