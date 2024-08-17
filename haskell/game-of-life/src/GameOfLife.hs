@@ -8,14 +8,11 @@ type Pos = (Int, Int)
 
 tick :: [[Int]] -> [[Int]]
 tick [] = []
-tick xss = toMatrix aliveCells n m
+tick xss = [[next (i, j) living | j <- [0 .. n]] | i <- [0 .. m]]
   where
     n = length xss - 1
     m = length (head xss) - 1
-    aliveCells = livingCells xss n m
-
-toMatrix :: [Pos] -> Int -> Int -> [[Int]]
-toMatrix living n m = [[next (i, j) living | j <- [0 .. n]] | i <- [0 .. m]]
+    living = livingCells xss n m
 
 next :: Pos -> [Pos] -> Int
 next p living
