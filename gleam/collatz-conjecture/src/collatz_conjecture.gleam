@@ -1,3 +1,5 @@
+import gleam/int
+
 pub type Error {
   NonPositiveNumber
 }
@@ -13,9 +15,9 @@ fn collatz(n, steps) -> Int {
   case n {
     1 -> steps
     _ ->
-      case n % 2 {
-        0 -> collatz(n / 2, steps + 1)
-        _ -> collatz(n * 3 + 1, steps + 1)
+      case int.is_even(n) {
+        True -> collatz(n / 2, steps + 1)
+        False -> collatz(n * 3 + 1, steps + 1)
       }
   }
 }
