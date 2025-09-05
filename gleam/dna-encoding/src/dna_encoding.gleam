@@ -1,5 +1,5 @@
-import gleam/bit_array
 import gleam/list
+import gleam/result
 
 pub type Nucleotide {
   Adenine
@@ -28,19 +28,16 @@ pub fn decode_nucleotide(nucleotide: Int) -> Result(Nucleotide, Nil) {
 }
 
 pub fn encode(dna: List(Nucleotide)) -> BitArray {
-  list.fold(dna, <<0:0>>, fn(acc, n) { <<acc:bits, encode_nucleotide(n):2>> })
+  list.fold(dna, <<>>, fn(acc, n) { <<acc:bits, encode_nucleotide(n):2>> })
 }
 
 pub fn decode(dna: BitArray) -> Result(List(Nucleotide), Nil) {
-  case bit_array.bit_size(dna) {
-    s if s == 0 -> Ok([])
-    s if s >= 2 -> {
-      let assert <<val:2, rest:bits>> = dna
-      let assert Ok(n) = decode_nucleotide(val)
-      case decode(rest) {
-        Ok(ns) -> Ok([n, ..ns])
-        err -> err
-      }
+  case dna {
+    <<>> -> Ok([])
+    <<head:2, tail:bits>> -> {
+      use head <- result.try(decode_nucleotide(head))
+      use tail <- result.try(decode(tail))
+      Ok([head, ..tail])
     }
     _ -> Error(Nil)
   }
