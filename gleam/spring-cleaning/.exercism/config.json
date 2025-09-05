@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "lpil"
+  ],
+  "files": {
+    "solution": [
+      "src/spring_cleaning.gleam"
+    ],
+    "test": [
+      "test/spring_cleaning_test.gleam"
+    ],
+    "exemplar": [
+      ".meta/example.gleam"
+    ],
+    "invalidator": [
+      "gleam.toml",
+      "manifest.toml"
+    ]
+  },
+  "blurb": "Learn about let assertions by cleaning some poorly organised data."
+}
