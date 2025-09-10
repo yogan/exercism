@@ -1,3 +1,4 @@
+import gleam/bool
 import gleam/list
 import gleam/result
 import gleam/set
@@ -34,30 +35,21 @@ fn traverse(inorder inorder: List(a), preorder preorder: List(a)) -> Tree(a) {
   }
 }
 
-fn validate(
-  inorder inorder: List(a),
-  preorder preorder: List(a),
-) -> Result(String, Error) {
-  let inorder_set = set.from_list(inorder)
-  let preorder_set = set.from_list(preorder)
+fn validate(inorder: List(a), preorder: List(a)) -> Result(Tree(b), Error) {
+  use <- bool.guard(
+    when: list.length(inorder) != list.length(preorder),
+    return: Error(DifferentLengths),
+  )
 
-  let inorder_set_size = set.size(inorder_set)
-  let preorder_set_size = set.size(preorder_set)
+  let #(in_set, pre_set) = #(set.from_list(preorder), set.from_list(inorder))
 
-  case
-    inorder_set_size == list.length(inorder)
-    && preorder_set_size == list.length(preorder)
-  {
-    True -> {
-      case inorder_set_size == preorder_set_size {
-        True ->
-          case inorder_set == preorder_set {
-            True -> Ok("")
-            False -> Error(DifferentItems)
-          }
-        False -> Error(DifferentLengths)
-      }
-    }
-    False -> Error(NonUniqueItems)
-  }
+  use <- bool.guard(
+    when: set.size(in_set) != list.length(inorder)
+      || set.size(pre_set) != list.length(preorder),
+    return: Error(NonUniqueItems),
+  )
+
+  use <- bool.guard(when: in_set != pre_set, return: Error(DifferentItems))
+
+  Ok(Nil)
 }
