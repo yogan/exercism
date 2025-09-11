@@ -11,8 +11,5 @@ pub fn sum(factors factors: List(Int), limit limit: Int) -> Int {
 }
 
 fn multiples_up_to(n: Int, limit: Int) -> List(Int) {
-  case n {
-    n if n < 1 -> []
-    _ -> list.range(1, limit - 1) |> list.filter(fn(x) { x % n == 0 })
-  }
+  list.range(1, limit - 1) |> list.filter(fn(x) { n > 0 && x % n == 0 })
 }
