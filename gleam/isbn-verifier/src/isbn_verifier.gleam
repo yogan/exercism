@@ -1,3 +1,4 @@
+import gleam/bool
 import gleam/int
 import gleam/list
 import gleam/result
@@ -5,21 +6,18 @@ import gleam/string
 
 pub fn is_valid(isbn: String) -> Bool {
   let chars = isbn |> string.replace("-", "") |> string.to_graphemes()
-  case list.length(chars) {
-    10 -> {
-      let #(ds, d10) = list.split(chars, 9)
-      case ds |> list.map(int.parse) |> result.all() {
-        Ok(ds) -> {
-          let assert [d10] = d10
-          case d10 |> string.replace("X", "10") |> int.parse() {
-            Ok(d10) -> ds |> list.append([d10]) |> check_isbn()
-            Error(_) -> False
-          }
-        }
+
+  use <- bool.guard(list.length(chars) != 10, False)
+  let assert #(ds, [d10]) = list.split(chars, 9)
+
+  case ds |> list.map(int.parse) |> result.all() {
+    Ok(ds) -> {
+      case d10 |> string.replace("X", "10") |> int.parse() {
+        Ok(d10) -> ds |> list.append([d10]) |> check_isbn()
         Error(_) -> False
       }
     }
-    _ -> False
+    Error(_) -> False
   }
 }
 
