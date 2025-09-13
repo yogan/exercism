@@ -10,15 +10,14 @@ pub fn is_valid(isbn: String) -> Bool {
   use <- bool.guard(list.length(chars) != 10, False)
   let assert #(ds, [d10]) = list.split(chars, 9)
 
-  case ds |> list.map(int.parse) |> result.all() {
-    Ok(ds) -> {
-      case d10 |> string.replace("X", "10") |> int.parse() {
-        Ok(d10) -> ds |> list.append([d10]) |> check_isbn()
-        Error(_) -> False
-      }
-    }
-    Error(_) -> False
-  }
+  validate(ds, d10) |> result.unwrap(False)
+}
+
+fn validate(ds: List(String), d10: String) -> Result(Bool, Nil) {
+  use ds <- result.try(ds |> list.map(int.parse) |> result.all())
+  use d10 <- result.try(d10 |> string.replace("X", "10") |> int.parse())
+
+  ds |> list.append([d10]) |> check_isbn() |> Ok
 }
 
 fn check_isbn(ds: List(Int)) -> Bool {
