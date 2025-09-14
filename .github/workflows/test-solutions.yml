@@ -73,27 +73,7 @@ jobs:
           df -h | grep root | awk '{print "Free space (after cleanup): " $4}' | tee -a /disk_space.log
 
       - name: "Test solutions for ${{ matrix.language }}"
-        run: |
-          language="${{ matrix.language }}"
-
-          # Special handling for languages with different test scripts
-          case "$language" in
-            "C#")
-              ./bin/test-dotnet.sh csharp
-              ;;
-            "F#")
-              ./bin/test-dotnet.sh fsharp
-              ;;
-            "MIPS Assembly")
-              ./bin/test-mips.sh
-              ;;
-            *)
-              # Default case for most languages
-              # Convert the language name to a lowercase file name
-              sanitized_language=$(echo "$language" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')
-              ./bin/test-"$sanitized_language".sh
-              ;;
-          esac
+        run: ./bin/test.sh "${{ matrix.language }}"
         if: always()
 
       - name: "Cleanup for ${{ matrix.language }}"
