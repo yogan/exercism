@@ -9,12 +9,55 @@ on:
       - main
   schedule:
     # run every night at 2:42 UTC (3:42/4:42 German time)
-    - cron: '42 3 * * *'
+    - cron: "42 3 * * *"
 
 jobs:
   test-solutions:
     runs-on: ubuntu-latest
     container: ghcr.io/yogan/yogans-advent-of-code:latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language:
+          - AWK
+          - Bash
+          - Clojure
+          - "Common LISP"
+          - Crystal
+          - C
+          - "C++"
+          - "C#"
+          - Elixir
+          - Elm
+          - Erlang
+          - Fortran
+          - "F#"
+          - Gleam
+          - Go
+          - Groovy
+          - Haskell
+          - Java
+          - JavaScript
+          - Julia
+          - Kotlin
+          - "MIPS Assembly"
+          - Nim
+          - Perl
+          - PowerShell
+          - Prolog
+          - Python
+          - R
+          - Ruby
+          - Rust
+          - Scheme
+          - Scala
+          - "Standard ML"
+          - Swift
+          - Tcl
+          - TypeScript
+          - WebAssembly
+          - Zig
 
     steps:
       - name: Checkout code
@@ -29,310 +72,34 @@ jobs:
           rm -rf /__t/CodeQL /__t/Python /__t/PyPy /__t/node /__t/go /__t/Ruby
           df -h | grep root | awk '{print "Free space (after cleanup): " $4}' | tee -a /disk_space.log
 
-      - name: AWK - test solutions
-        run: ./bin/test-awk.sh
-        if: success() || failure()
-
-      - name: AWK - cleanup
-        run: ./bin/cleanup.sh AWK /disk_space.log
-        if: success() || failure()
-
-      - name: Bash - test solutions
-        run: ./bin/test-bash.sh
-        if: success() || failure()
-
-      - name: Bash - cleanup
-        run: ./bin/cleanup.sh Bash /disk_space.log
-        if: success() || failure()
-
-      - name: Clojure - test solutions
-        run: ./bin/test-clojure.sh
-        if: success() || failure()
-
-      - name: Clojure - cleanup
-        run: ./bin/cleanup.sh Clojure /disk_space.log
-        if: success() || failure()
-
-      - name: Common LISP - test solutions
-        run: ./bin/test-common-lisp.sh
-        if: success() || failure()
-
-      - name: Common LISP - cleanup
-        run: ./bin/cleanup.sh "Common LISP" /disk_space.log
-        if: success() || failure()
-
-      - name: Crystal - test solutions
-        run: ./bin/test-crystal.sh
-        if: success() || failure()
-
-      - name: Crystal - cleanup
-        run: ./bin/cleanup.sh Crystal /disk_space.log
-        if: success() || failure()
-
-      - name: C - test solutions
-        run: ./bin/test-c.sh
-        if: success() || failure()
-
-      - name: C - cleanup
-        run: ./bin/cleanup.sh C /disk_space.log
-        if: success() || failure()
-
-      - name: C++ - test solutions
-        run: ./bin/test-cpp.sh
-        if: success() || failure()
-
-      - name: C++ - cleanup
-        run: ./bin/cleanup.sh "C++" /disk_space.log
-        if: success() || failure()
-
-      - name: C# - test solutions
-        run: ./bin/test-dotnet.sh csharp
-        if: success() || failure()
-
-      - name: C# - cleanup
-        run: ./bin/cleanup.sh "C#" /disk_space.log
-        if: success() || failure()
-
-      - name: Elixir - test solutions
-        run: ./bin/test-elixir.sh
-        if: success() || failure()
-
-      - name: Elixir - cleanup
-        run: ./bin/cleanup.sh Elixir /disk_space.log
-        if: success() || failure()
-
-      - name: Elm - test solutions
-        run: ./bin/test-elm.sh
-        if: success() || failure()
-
-      - name: Elm - cleanup
-        run: ./bin/cleanup.sh Elm /disk_space.log
-        if: success() || failure()
-
-      - name: Erlang - test solutions
-        run: ./bin/test-erlang.sh
-        if: success() || failure()
-
-      - name: Erlang - cleanup
-        run: ./bin/cleanup.sh Erlang /disk_space.log
-        if: success() || failure()
-
-      - name: Fortran - test solutions
-        run: ./bin/test-fortran.sh
-        if: success() || failure()
-
-      - name: Fortran - cleanup
-        run: ./bin/cleanup.sh Fortran /disk_space.log
-        if: success() || failure()
-
-      - name: F# - test solutions
-        run: ./bin/test-dotnet.sh fsharp
-        if: success() || failure()
-
-      - name: F# - cleanup
-        run: ./bin/cleanup.sh "F#" /disk_space.log
-        if: success() || failure()
-
-      - name: Gleam - test solutions
-        run: ./bin/test-gleam.sh
-        if: success() || failure()
-
-      - name: Gleam - cleanup
-        run: ./bin/cleanup.sh Gleam /disk_space.log
-        if: success() || failure()
-
-      - name: Go - test solutions
-        run: ./bin/test-go.sh
-        if: success() || failure()
-
-      - name: Go - cleanup
-        run: ./bin/cleanup.sh Go /disk_space.log
-        if: success() || failure()
-
-      - name: Groovy - test solutions
-        run: ./bin/test-groovy.sh
-        if: success() || failure()
-
-      - name: Groovy - cleanup
-        run: ./bin/cleanup.sh Groovy /disk_space.log
-        if: success() || failure()
-
-      - name: Haskell - test solutions
-        run: ./bin/test-haskell.sh
-        if: success() || failure()
-
-      - name: Haskell - cleanup
-        run: ./bin/cleanup.sh Haskell /disk_space.log
-        if: success() || failure()
-
-      - name: Java - test solutions
-        run: ./bin/test-java.sh
-        if: success() || failure()
-
-      - name: Java - cleanup
-        run: ./bin/cleanup.sh Java /disk_space.log
-        if: success() || failure()
-
-      - name: JavaScript - test solutions
-        run: ./bin/test-javascript.sh
-        if: success() || failure()
-
-      - name: JavaScript - cleanup
-        run: ./bin/cleanup.sh JavaScript /disk_space.log
-        if: success() || failure()
-
-      - name: Julia - test solutions
-        run: ./bin/test-julia.sh
-        if: success() || failure()
-
-      - name: Julia - cleanup
-        run: ./bin/cleanup.sh Julia /disk_space.log
-        if: success() || failure()
-
-      - name: Kotlin - test solutions
-        run: ./bin/test-kotlin.sh
-        if: success() || failure()
-
-      - name: Kotlin - cleanup
-        run: ./bin/cleanup.sh Kotlin /disk_space.log
-        if: success() || failure()
-
-      - name: MIPS Assembly - test solutions
-        run: ./bin/test-mips.sh
-        if: success() || failure()
-
-      - name: MIPS Assembly - cleanup
-        run: ./bin/cleanup.sh "MIPS Assembly" /disk_space.log
-        if: success() || failure()
-
-      - name: Nim - test solutions
-        run: ./bin/test-nim.sh
-        if: success() || failure()
-
-      - name: Nim - cleanup
-        run: ./bin/cleanup.sh Nim /disk_space.log
-        if: success() || failure()
-
-      - name: Perl - test solutions
-        run: ./bin/test-perl.sh
-        if: success() || failure()
-
-      - name: Perl - cleanup
-        run: ./bin/cleanup.sh Perl /disk_space.log
-        if: success() || failure()
-
-      - name: PowerShell - test solutions
-        run: ./bin/test-powershell.sh
-        if: success() || failure()
-
-      - name: PowerShell - cleanup
-        run: ./bin/cleanup.sh PowerShell /disk_space.log
-        if: success() || failure()
-
-      - name: Prolog - test solutions
-        run: ./bin/test-prolog.sh
-        if: success() || failure()
-
-      - name: Prolog - cleanup
-        run: ./bin/cleanup.sh Prolog /disk_space.log
-        if: success() || failure()
-
-      - name: Python - test solutions
-        run: ./bin/test-python.sh
-        if: success() || failure()
-
-      - name: Python - cleanup
-        run: ./bin/cleanup.sh Python /disk_space.log
-        if: success() || failure()
-
-      - name: R - test solutions
-        run: ./bin/test-r.sh
-        if: success() || failure()
-
-      - name: R - cleanup
-        run: ./bin/cleanup.sh R /disk_space.log
-        if: success() || failure()
-
-      - name: Ruby - test solutions
-        run: ./bin/test-ruby.sh
-        if: success() || failure()
-
-      - name: Ruby - cleanup
-        run: ./bin/cleanup.sh Ruby /disk_space.log
-        if: success() || failure()
-
-      - name: Rust - test solutions
-        run: ./bin/test-rust.sh
-        if: success() || failure()
-
-      - name: Rust - cleanup
-        run: ./bin/cleanup.sh Rust /disk_space.log
-        if: success() || failure()
-
-      - name: Scheme - test solutions
-        run: ./bin/test-scheme.sh
-        if: success() || failure()
-
-      - name: Scheme - cleanup
-        run: ./bin/cleanup.sh Scheme /disk_space.log
-        if: success() || failure()
-
-      - name: Scala - test solutions
-        run: ./bin/test-scala.sh
-        if: success() || failure()
-
-      - name: Scala - cleanup
-        run: ./bin/cleanup.sh Scala /disk_space.log
-        if: success() || failure()
-
-      - name: Standard ML - test solutions
-        run: ./bin/test-sml.sh
-        if: success() || failure()
-
-      - name: Standard ML - cleanup
-        run: ./bin/cleanup.sh "Standard ML" /disk_space.log
-        if: success() || failure()
-
-      - name: Swift - test solutions
-        run: ./bin/test-swift.sh
-        if: success() || failure()
-
-      - name: Swift - cleanup
-        run: ./bin/cleanup.sh Swift /disk_space.log
-        if: success() || failure()
-
-      - name: Tcl - test solutions
-        run: ./bin/test-tcl.sh
-        if: success() || failure()
-
-      - name: Tcl - cleanup
-        run: ./bin/cleanup.sh Tcl /disk_space.log
-        if: success() || failure()
-
-      - name: TypeScript - test solutions
-        run: ./bin/test-typescript.sh
-        if: success() || failure()
-
-      - name: TypeScript - cleanup
-        run: ./bin/cleanup.sh TypeScript /disk_space.log
-        if: success() || failure()
-
-      - name: WebAssembly - test solutions
-        run: ./bin/test-wasm.sh
-        if: success() || failure()
-
-      - name: WebAssembly - cleanup
-        run: ./bin/cleanup.sh WebAssembly /disk_space.log
-        if: success() || failure()
-
-      - name: Zig - test solutions
-        run: ./bin/test-zig.sh
-        if: success() || failure()
-
-      - name: Zig - cleanup
-        run: ./bin/cleanup.sh Zig /disk_space.log
-        if: success() || failure()
+      - name: "Test solutions for ${{ matrix.language }}"
+        run: |
+          language="${{ matrix.language }}"
+
+          # Special handling for languages with different test scripts
+          case "$language" in
+            "C#")
+              ./bin/test-dotnet.sh csharp
+              ;;
+            "F#")
+              ./bin/test-dotnet.sh fsharp
+              ;;
+            "MIPS Assembly")
+              ./bin/test-mips.sh
+              ;;
+            *)
+              # Default case for most languages
+              # Convert the language name to a lowercase file name
+              sanitized_language=$(echo "$language" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')
+              ./bin/test-"$sanitized_language".sh
+              ;;
+          esac
+        if: always()
+
+      - name: "Cleanup for ${{ matrix.language }}"
+        run: ./bin/cleanup.sh "${{ matrix.language }}" /disk_space.log
+        if: always()
 
       - name: Print disk space log
         run: cat /disk_space.log
-        if: success() || failure()
+        if: always()
