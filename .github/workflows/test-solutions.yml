@@ -11,53 +11,37 @@ on:
     # run every night at 2:42 UTC (3:42/4:42 German time)
     - cron: "42 3 * * *"
 
+# Grant the GITHUB_TOKEN read permission to allow the `prepare-test-matrix` job to
+# get a list of changed files from the Git history.
+permissions:
+  contents: read
+
 jobs:
+  prepare-test-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.prepare.outputs.matrix }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # Fetch all history to ensure a correct diff against the base branch
+          fetch-depth: 0
+
+      - name: Prepare test matrix
+        id: prepare
+        # Pass the event type to the script for conditional logic.
+        run: echo "matrix=$(./bin/prepare-matrix.sh '${{ github.event_name }}' '${{ github.base_ref }}' '${{ github.ref_name }}')" >> "$GITHUB_OUTPUT"
+
   test-solutions:
     runs-on: ubuntu-latest
     container: ghcr.io/yogan/yogans-advent-of-code:latest
+    needs: prepare-test-matrix
 
     strategy:
       fail-fast: false
       matrix:
-        language:
-          - AWK
-          - Bash
-          - Clojure
-          - "Common LISP"
-          - Crystal
-          - C
-          - "C++"
-          - "C#"
-          - Elixir
-          - Elm
-          - Erlang
-          - Fortran
-          - "F#"
-          - Gleam
-          - Go
-          - Groovy
-          - Haskell
-          - Java
-          - JavaScript
-          - Julia
-          - Kotlin
-          - "MIPS Assembly"
-          - Nim
-          - Perl
-          - PowerShell
-          - Prolog
-          - Python
-          - R
-          - Ruby
-          - Rust
-          - Scheme
-          - Scala
-          - "Standard ML"
-          - Swift
-          - Tcl
-          - TypeScript
-          - WebAssembly
-          - Zig
+        language: ${{ fromJson(needs.prepare-test-matrix.outputs.matrix) }}
 
     steps:
       - name: Checkout code
