@@ -1,0 +1,21 @@
+{
+  "authors": [
+    "lpil"
+  ],
+  "files": {
+    "solution": [
+      "src/sticker_shop.gleam"
+    ],
+    "test": [
+      "test/sticker_shop_test.gleam"
+    ],
+    "exemplar": [
+      ".meta/example.gleam"
+    ],
+    "invalidator": [
+      "gleam.toml",
+      "manifest.toml"
+    ]
+  },
+  "blurb": "Learn about Phantom Types by selling cute programming stickers"
+}
