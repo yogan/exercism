@@ -14,7 +14,7 @@ pub fn slices(input: String, size: Int) -> Result(List(String), Error) {
   input
   |> string.to_graphemes
   |> list.window(size)
-  |> list.map(string.join(_, with: ""))
+  |> list.map(string.concat)
   |> Ok
 }
 
