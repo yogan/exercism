@@ -2,6 +2,7 @@ import gleam/dict.{type Dict}
 import gleam/int
 import gleam/list
 import gleam/order.{type Order, Eq}
+import gleam/result
 import gleam/string
 
 pub type School {
@@ -39,7 +40,6 @@ pub fn add(
 
 pub fn grade(school: School, desired_grade: Int) -> List(String) {
   school.grades
-  |> dict.to_list
-  |> list.filter(fn(pair) { pair.1 == desired_grade })
-  |> list.map(fn(pair) { pair.0 })
+  |> dict.filter(fn(_, grade) { grade == desired_grade })
+  |> dict.keys
 }
