@@ -1,20 +1,29 @@
-import gleam/bool
 import gleam/dict.{type Dict}
+import gleam/int
 import gleam/list
-import gleam/option.{None, Some}
-import gleam/result
-import gleam/set.{type Set}
+import gleam/order.{type Order, Eq}
+import gleam/string
 
 pub type School {
-  School(roster: Dict(Int, Set(String)))
+  School(grades: Dict(String, Int))
 }
 
 pub fn create() -> School {
   School(dict.new())
 }
 
+fn compare_pair(first: #(String, Int), second: #(String, Int)) -> Order {
+  case int.compare(first.1, second.1) {
+    Eq -> string.compare(first.0, second.0)
+    neq -> neq
+  }
+}
+
 pub fn roster(school: School) -> List(String) {
-  school.roster |> dict.values |> list.flat_map(set.to_list)
+  school.grades
+  |> dict.to_list
+  |> list.sort(compare_pair)
+  |> list.map(fn(pair) { pair.0 })
 }
 
 pub fn add(
@@ -22,26 +31,15 @@ pub fn add(
   student student: String,
   grade grade: Int,
 ) -> Result(School, Nil) {
-  use <- bool.guard(
-    when: roster(school) |> list.contains(student),
-    return: Error(Nil),
-  )
-
-  school.roster
-  |> dict.upsert(grade, fn(x) {
-    case x {
-      Some(s) -> s
-      None -> set.new()
-    }
-    |> set.insert(student)
-  })
-  |> School
-  |> Ok
+  case school.grades |> dict.has_key(student) {
+    True -> Error(Nil)
+    False -> school.grades |> dict.insert(student, grade) |> School |> Ok
+  }
 }
 
 pub fn grade(school: School, desired_grade: Int) -> List(String) {
-  school.roster
-  |> dict.get(desired_grade)
-  |> result.map(set.to_list)
-  |> result.unwrap([])
+  school.grades
+  |> dict.to_list
+  |> list.filter(fn(pair) { pair.1 == desired_grade })
+  |> list.map(fn(pair) { pair.0 })
 }
