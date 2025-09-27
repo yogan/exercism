@@ -1,7 +1,9 @@
 import gleam/bool.{guard}
-import gleam/int.{compare, sum}
-import gleam/list.{filter, range}
+import gleam/float
+import gleam/int.{compare, sum, to_float}
+import gleam/list.{filter, fold, range}
 import gleam/order.{Eq, Gt, Lt}
+import gleam/result
 
 pub type Classification {
   Perfect
@@ -26,9 +28,21 @@ pub fn classify(number: Int) -> Result(Classification, Error) {
 }
 
 fn factors(n: Int) -> List(Int) {
-  case n {
-    1 -> [1]
-    2 -> [1, 2]
-    _ -> [1, ..range(2, n / 2) |> filter(fn(x) { n % x == 0 })]
-  }
+  range(2, sqrt(n))
+  |> filter(fn(x) { n % x == 0 })
+  |> fold([], fn(acc, x) {
+    case x * x == n {
+      True -> [x, ..acc]
+      False -> [x, n / x, ..acc]
+    }
+  })
+  |> list.append([1])
+}
+
+fn sqrt(n: Int) -> Int {
+  n
+  |> to_float
+  |> float.square_root
+  |> result.unwrap(0.0)
+  |> float.truncate
 }
