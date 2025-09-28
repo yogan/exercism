@@ -1,4 +1,4 @@
-import gleam/list.{contains, map, reverse}
+import gleam/list.{any, contains, map, reverse}
 import gleam/string.{
   concat, drop_start, join, length, split, starts_with, to_graphemes,
 }
@@ -15,20 +15,9 @@ fn translate_word(word: String) -> String {
     True -> word <> "ay"
     False -> {
       let cluster = extract_consonant_cluster(word)
-      let rest = drop_start(word, length(cluster))
-      rest <> cluster <> "ay"
+      drop_start(word, length(cluster)) <> cluster <> "ay"
     }
   }
-}
-
-fn starts_with_vowel_sound(word: String) -> Bool {
-  starts_with(word, "a")
-  || starts_with(word, "e")
-  || starts_with(word, "i")
-  || starts_with(word, "o")
-  || starts_with(word, "u")
-  || starts_with(word, "xr")
-  || starts_with(word, "yt")
 }
 
 fn extract_consonant_cluster(word: String) -> String {
@@ -67,6 +56,12 @@ fn extract(graphemes: List(String), acc: List(String)) -> List(String) {
   }
 }
 
+const vowels = ["a", "e", "i", "o", "u"]
+
 fn is_vowel(letter: String) -> Bool {
-  contains(["a", "e", "i", "o", "u"], letter)
+  vowels |> contains(letter)
+}
+
+fn starts_with_vowel_sound(word: String) -> Bool {
+  ["xr", "yt", ..vowels] |> any(starts_with(word, _))
 }
