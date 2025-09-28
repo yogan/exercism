@@ -31,28 +31,17 @@ fn extract_consonant_cluster(word: String) -> String {
 fn extract(graphemes: List(String), acc: List(String)) -> List(String) {
   case graphemes {
     [] -> acc
-    [first, ..rest] -> {
+    [first, ..rest] ->
       case is_vowel(first) {
         True -> acc
-        False -> {
-          case first {
-            "y" -> {
-              case acc {
-                [] -> extract(rest, [first, ..acc])
-                _ -> acc
-              }
-            }
-            "q" -> {
-              case rest {
-                ["u", ..remaining] -> extract(remaining, ["u", "q", ..acc])
-                _ -> extract(rest, [first, ..acc])
-              }
-            }
-            _ -> extract(rest, [first, ..acc])
+        False ->
+          case first, rest, acc {
+            "y", _, [] -> extract(rest, [first, ..acc])
+            "y", _, _ -> acc
+            "q", ["u", ..remaining], _ -> extract(remaining, ["u", "q", ..acc])
+            _, _, _ -> extract(rest, [first, ..acc])
           }
-        }
       }
-    }
   }
 }
 
