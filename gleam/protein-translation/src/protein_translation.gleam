@@ -1,13 +1,13 @@
-import gleam/list
-import gleam/string
+import gleam/list.{map, sized_chunk, take_while, try_map}
+import gleam/string.{concat, to_graphemes}
 
 pub fn proteins(rna: String) -> Result(List(String), Nil) {
   rna
-  |> string.to_graphemes
-  |> list.sized_chunk(3)
-  |> list.map(string.concat)
-  |> list.take_while(fn(c) { c != "UAA" && c != "UAG" && c != "UGA" })
-  |> list.try_map(fn(codon) {
+  |> to_graphemes
+  |> sized_chunk(3)
+  |> map(concat)
+  |> take_while(fn(c) { c != "UAA" && c != "UAG" && c != "UGA" })
+  |> try_map(fn(codon) {
     case codon {
       "AUG" -> Ok("Methionine")
       "UUU" | "UUC" -> Ok("Phenylalanine")
