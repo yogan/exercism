@@ -128,7 +128,7 @@ else
 
     # Check for changes in key directories that should trigger a full build.
     for file in "${CHANGED_FILES[@]}"; do
-        if [[ "$file" == "bin/"* ]] || [[ "$file" == ".github/workflows/"* ]] || [[ "$file" == "README.md" ]]; then
+        if [[ "$file" == "bin/"* ]] || [[ "$file" == ".github/workflows/"* ]]; then
             echo "Changes detected in a shared resource ($file). Preparing a full matrix." >&2
             LANGUAGES_TO_TEST=("${FULL_LANGUAGE_LIST[@]}")
             break

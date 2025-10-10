@@ -30,7 +30,10 @@ jobs:
 
       - name: Prepare test matrix
         id: prepare
-        run: echo "matrix=$(./bin/prepare-matrix.sh '${{ github.event_name }}' '${{ github.base_ref }}')" >> "$GITHUB_OUTPUT"
+        run: |
+          matrix=$(./bin/prepare-matrix.sh '${{ github.event_name }}' '${{ github.base_ref }}')
+          echo "Will test these languages: $matrix"
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
 
   test-solutions:
     runs-on: ubuntu-latest
