@@ -9,7 +9,6 @@ set -e
 # The event name is passed as the first argument.
 EVENT_NAME="$1"
 BASE_REF="$2"
-REF_NAME="$3"
 
 # Define the full list of languages for a full test run.
 FULL_LANGUAGE_LIST=(
@@ -107,7 +106,15 @@ else
     # Determine the base for the diff.
     if [[ "$EVENT_NAME" == "pull_request" ]]; then
         # For a PR, diff against the base branch.
-        BASE_SHA=$(git rev-parse "$BASE_REF")
+        # Try the base ref as-is first, then try with origin/ prefix
+        if git rev-parse --verify "$BASE_REF" >/dev/null 2>&1; then
+            BASE_SHA=$(git rev-parse "$BASE_REF")
+        elif git rev-parse --verify "origin/$BASE_REF" >/dev/null 2>&1; then
+            BASE_SHA=$(git rev-parse "origin/$BASE_REF")
+        else
+            echo "Error: Could not resolve base reference: $BASE_REF" >&2
+            exit 1
+        fi
     else
         # For a push, diff against the previous commit on the same branch.
         BASE_SHA=$(git rev-parse HEAD~1)

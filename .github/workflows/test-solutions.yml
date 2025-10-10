@@ -9,7 +9,7 @@ on:
       - main
   schedule:
     # run every night at 2:42 UTC (3:42/4:42 German time)
-    - cron: "42 3 * * *"
+    - cron: '42 3 * * *'
 
 # Grant the GITHUB_TOKEN read permission to allow the `prepare-test-matrix` job to
 # get a list of changed files from the Git history.
@@ -30,7 +30,7 @@ jobs:
 
       - name: Prepare test matrix
         id: prepare
-        run: echo "matrix=$(./bin/prepare-matrix.sh '${{ github.event_name }}' '${{ github.base_ref }}' '${{ github.ref_name }}')" >> "$GITHUB_OUTPUT"
+        run: echo "matrix=$(./bin/prepare-matrix.sh '${{ github.event_name }}' '${{ github.base_ref }}')" >> "$GITHUB_OUTPUT"
 
   test-solutions:
     runs-on: ubuntu-latest
@@ -46,6 +46,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: "Test solutions for ${{ matrix.language }}"
+      - name: 'Test solutions for ${{ matrix.language }}'
         run: ./bin/test.sh "${{ matrix.language }}"
         if: always()
