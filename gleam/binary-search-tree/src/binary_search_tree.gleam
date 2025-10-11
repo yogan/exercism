@@ -6,38 +6,27 @@ pub type Tree {
 }
 
 pub fn to_tree(data: List(Int)) -> Tree {
-  add(Nil, data)
+  data |> list.fold(Nil, add)
 }
 
-fn add(tree: Tree, data: List(Int)) -> Tree {
-  case data {
-    [] -> tree
-    [x, ..xs] ->
-      {
-        case tree {
-          Nil -> Node(data: x, left: Nil, right: Nil)
-          Node(data, left, right) ->
-            case x <= data {
-              True -> Node(data, add(left, [x]), right)
-              False -> Node(data, left, add(right, [x]))
-            }
-        }
+fn add(tree: Tree, value: Int) -> Tree {
+  case tree {
+    Nil -> Node(value, Nil, Nil)
+    Node(data, left, right) ->
+      case value <= data {
+        True -> Node(data, add(left, value), right)
+        False -> Node(data, left, add(right, value))
       }
-      |> add(xs)
   }
 }
 
 pub fn sorted_data(data: List(Int)) -> List(Int) {
-  to_tree(data) |> traverse([])
+  data |> to_tree |> traverse([])
 }
 
 fn traverse(tree: Tree, acc: List(Int)) -> List(Int) {
   case tree {
     Nil -> acc
-    Node(data, left, right) -> {
-      traverse(left, [])
-      |> list.append([data])
-      |> list.append(traverse(right, []))
-    }
+    Node(data, left, right) -> traverse(left, [data, ..traverse(right, acc)])
   }
 }
