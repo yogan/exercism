@@ -23,7 +23,7 @@ jobs:
       matrix: ${{ steps.prepare.outputs.matrix }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           # Fetch all history to ensure a correct diff against the base branch
           fetch-depth: 0
@@ -47,7 +47,14 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: Increase disk space by deleting unnecessary stuff
+        run: |
+          df -h | grep root | awk '{print $4}'
+          rm -rf /__t/CodeQL /__t/Python /__t/PyPy /__t/node /__t/go /__t/Ruby
+          df -h | grep root | awk '{print $4}'
+        if: matrix.language == 'haskell'
 
       - name: 'Test solutions for ${{ matrix.language }}'
         run: ./bin/test.sh "${{ matrix.language }}"
